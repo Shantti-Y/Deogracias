@@ -1,45 +1,89 @@
-const path = require('path');
+const modulePath = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const entryDir = '../src';
 const outDir = '../dist';
 
 module.exports = {
-  entry: {
-    index: [path.resolve(__dirname, `${entryDir}/index.tsx`)]
-  },
-  output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, `${outDir}`)
-  },
-  mode: "development",
-  devtool: "source-map",
-  resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx"]
-  },
-  module: {
-    rules: [
-      {
-        test: /\.ts(x?)$/,
-        exclude: /node_modules/,
-        use: [
-        { loader: "ts-loader" }
-        ]
-      },
-      {
-        enforce: "pre",
-        test: /\.js$/,
-        loader: "source-map-loader"
-      }
-    ]
-  },
-  devServer: {
-    inline: true,
-    contentBase: path.join(__dirname, './'),
-    port: 9000,
-    hot: true
-  },
-  plugins: [new HtmlWebpackPlugin({
-    template: './index.html'
-  })]
+	entry: { index: [modulePath.resolve(__dirname, `${entryDir}/index.tsx`)] },
+	output: {
+		filename: 'main.js',
+		path: modulePath.resolve(__dirname, `${outDir}`)
+	},
+	target: "web",
+	mode: "development",
+	devtool: "source-map",
+	module: {
+		rules: [
+			{
+				test: /\.ts(x?)$/,
+				exclude: /node_modules/,
+				use: [{ loader: "ts-loader" }]
+			},
+			{
+				enforce: "pre",
+				test: /\.js$/,
+				loader: "source-map-loader"
+			},
+			{
+				test: /\.(scss|css)$/,
+				use: [
+					'style-loader',
+					{
+						loader: 'css-loader',
+						options: { modules: true }
+					},
+					'sass-loader'
+				]
+			},
+			{
+				test: /\.less$/,
+				use: [
+					{ loader: "style-loader" }, 
+					{ loader: "css-loader" },
+					{
+						loader: "less-loader",
+						options: { javascriptEnabled: true }
+					}
+				]
+			},
+			{
+				test: /\.(png|jpg|gif|mp4)$/,
+				use: {
+					loader: 'file-loader',
+					options: {
+						outputPath: modulePath.resolve(__dirname, `${entryDir}/assets/image`),
+						publicPath: modulePath.resolve(__dirname, `${outDir}/assets/image`)
+					}
+				}
+			},
+			{
+				test: /\.(eot|svg|ttf|woff|woff2)$/,
+				loader: 'file-loader'
+			}
+		]
+	},
+	node: { fs: "empty" },
+	devServer: {
+		inline: true,
+		contentBase: modulePath.join(__dirname, './'),
+		port: 9000,
+		hot: true
+	},
+	plugins: [new HtmlWebpackPlugin({ template: './index.html' })],
+	resolve: {
+		extensions: ['.js', '.jsx', '.ts', '.tsx', '.jpg', '.png', '.scss'],
+		alias: {
+			'@/asset': modulePath.resolve(__dirname, `${entryDir}/asset`),
+			'@/component': modulePath.resolve(__dirname, `${entryDir}/component`),
+			'@/layout': modulePath.resolve(__dirname, `${entryDir}/layout`),
+			'@/route': modulePath.resolve(__dirname, `${entryDir}/route`),
+			'@/store': modulePath.resolve(__dirname, `${entryDir}/store`),
+			'@/action': modulePath.resolve(__dirname, `${entryDir}/action`),
+			'@/reducer': modulePath.resolve(__dirname, `${entryDir}/reducer`),
+			'@/saga': modulePath.resolve(__dirname, `${entryDir}/saga`),
+			'@/util': modulePath.resolve(__dirname, `${entryDir}/util`),
+			'@/public': modulePath.resolve(__dirname, `./public`)
+		}
+	}
 };
