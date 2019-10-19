@@ -1,9 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { Hello } from "./components/Hello";
+import FileUoloader from "@/route/FileUploader";
 
 ReactDOM.render(
-  <Hello compiler="TypeScrit" framework="React" />,
-  document.getElementById("example")
+	<FileUoloader />,
+	document.getElementById("example")
 );
