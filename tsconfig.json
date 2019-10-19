@@ -19,9 +19,6 @@
     "noEmit": false,
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./*"
-      ],
       "@/*": [
         "./*",
         "../*"
@@ -31,5 +28,8 @@
   "exclude": [
     "dist",
     "node_modules"
+  ],
+  "files": [
+    "./src/index.d.ts"
   ]
 }
