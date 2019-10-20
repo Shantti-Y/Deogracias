@@ -7,11 +7,11 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
-import MangaViewer from "@route/PrimaSample";
+import App from "@route";
 
 window.resizeTo(1000, 900);
 
 ReactDOM.render(
-	<MangaViewer />,
+	<App />,
 	document.getElementById("example")
 );
