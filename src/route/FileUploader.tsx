@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { DeograciasDB, DeograciasTable } from '@/util/database';
+import { deograciasDB, DeograciasTableName } from '@/util/database';
 
 enum ImageLocation {
   Local = 1,
@@ -149,7 +149,7 @@ const FileUploader: FC<FileUploaderProps> = props => {
 			tagIds: []
 		};
     
-		(new DeograciasDB).insertEntity(DeograciasTable.Mangas, manga);
+		deograciasDB.insertEntity(DeograciasTableName.Mangas, manga);
 	};
 
 	return (

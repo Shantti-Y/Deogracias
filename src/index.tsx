@@ -1,9 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import FileUoloader from "@/route/FileUploader";
+import FileViewer from "@/route/FileViewer";
 
 ReactDOM.render(
-	<FileUoloader />,
+	<FileViewer />,
 	document.getElementById("example")
 );

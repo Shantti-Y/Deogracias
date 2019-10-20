@@ -1,21 +1,15 @@
-/*
- * jsonファイルをsave
- * jsonファイルをread
- */
-
 import Dexie from 'dexie';
 
-const db = new Dexie('DeograciasDB');
-
-export enum DeograciasTable {
+export enum DeograciasTableName {
   Mangas = "mangas",
   tags = "tags"
 }
 
-export class DeograciasDB extends Dexie {
+export type DeograciasTableEntity = MangaEntity & TagEntity;
 
-  mangas: Dexie.Table<MangaEntity, number>;
-  tags: Dexie.Table<TagEntity, number>;
+class DeograciasDB extends Dexie {
+  public mangas: Dexie.Table<MangaEntity, number>;
+  public tags: Dexie.Table<TagEntity, number>;
 
   constructor() {
   	super('Deogracias DB');
@@ -27,9 +21,16 @@ export class DeograciasDB extends Dexie {
   	});
   	this.mangas = this.table("mangas");
   	this.tags = this.table("tags");
-  }
+	}
+	
+	async selectAllEntities(tableName: DeograciasTableName): Promise<any[]> {
+		console.log(await this[tableName].toArray())
+		return await this[tableName].toArray();
+	}
 
-  insertEntity(tableName: DeograciasTable, entity: MangaEntity & TagEntity) {
+	insertEntity(tableName: DeograciasTableName, entity: DeograciasTableEntity): void {
   	this[tableName].add(entity);
-  }
+	}
 }
+
+export const deograciasDB = new DeograciasDB();
