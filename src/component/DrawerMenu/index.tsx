@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Sidebar } from 'primereact/sidebar';
 
 import './style.scss';
@@ -9,6 +9,7 @@ interface DrawerMenuProps {
   closed: () => void;
 }
 const DrawerMenu: FC<DrawerMenuProps> = props => {
+
   const handleClosed = () => {
     props.closed();
   }
@@ -17,7 +18,11 @@ const DrawerMenu: FC<DrawerMenuProps> = props => {
       modal={false}
       visible={props.opened}
       onHide={() => handleClosed()}
+      showCloseIcon={false}
     >
+      <div>
+        Deogracias
+      </div>
       <props.itemComponent />
     </Sidebar>
   )

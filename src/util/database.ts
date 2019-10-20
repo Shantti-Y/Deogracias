@@ -2,7 +2,7 @@ import Dexie from 'dexie';
 
 export enum DeograciasTableName {
   Mangas = "mangas",
-  tags = "tags"
+  Tags = "tags"
 }
 
 export type DeograciasTableEntity = MangaEntity & TagEntity;
