@@ -21,16 +21,15 @@ class DeograciasDB extends Dexie {
   	});
   	this.mangas = this.table("mangas");
   	this.tags = this.table("tags");
-	}
+  }
 	
-	async selectAllEntities(tableName: DeograciasTableName): Promise<any[]> {
-		console.log(await this[tableName].toArray())
-		return await this[tableName].toArray();
-	}
+  async selectAllEntities(tableName: DeograciasTableName): Promise<any[]> {
+  	return await this[tableName].toArray();
+  }
 
-	insertEntity(tableName: DeograciasTableName, entity: DeograciasTableEntity): void {
+  insertEntity(tableName: DeograciasTableName, entity: DeograciasTableEntity): void {
   	this[tableName].add(entity);
-	}
+  }
 }
 
-export const deograciasDB = new DeograciasDB();
+export const deograciasDB = new DeograciasDB;
