@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { deograciasDB, DeograciasTableName } from '@/util/database';
+import { DeograciasTableName, deograciasDB } from '@util/database';
 
 enum ImageLocation {
   Local = 1,
