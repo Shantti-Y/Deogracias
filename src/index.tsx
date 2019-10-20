@@ -3,7 +3,11 @@ import * as ReactDOM from "react-dom";
 
 import '@asset/stylesheet/root.scss';
 
-import MangaViewer from "@route/MangaViewer";
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+
+import MangaViewer from "@route/PrimaSample";
 
 window.resizeTo(1000, 900);
 
