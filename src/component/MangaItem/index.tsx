@@ -1,17 +1,17 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import './style.scss';
 
-interface MangaItemProps {
-  manga: MangaEntity;
-}
-const MangaItem = manga => {
+const MangaItem = (manga: MangaEntity) => {
   const imageSrc = manga.pages[0].url;
   return (
-    <div className="manga-item">
-      <div className="name">{manga.name}</div>
-      <img className="image" src={imageSrc} alt={imageSrc} />
-    </div>
+    <Link to={`/mangas/${manga.id}`}>
+      <div className="manga-item">
+        <div className="name">{manga.name}</div>
+        <img className="image" src={imageSrc} alt={imageSrc} />
+      </div>
+    </Link>
   )
 }
 export default MangaItem;
