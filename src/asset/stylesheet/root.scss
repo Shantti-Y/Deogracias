@@ -8,3 +8,21 @@ body {
   margin: 0;
 }
 
+
+@media all and (max-width: 767px) {
+  .p-sm-0 {
+    display: none;
+  }
+}
+
+@media all and (max-width: 991px) {
+  .p-md-0 {
+    display: none;
+  }
+}
+
+@media all and (max-width: 1199px) {
+  .p-lg-0 {
+    display: none;
+  }
+}
