@@ -22,7 +22,7 @@ const HeaderMenu: FC<HeaderMenuProps> = props => {
     props.drawerClicked(!props.drawerOpened);
   }
   return (
-    <Menubar model={menuItems}>
+    <Menubar model={menuItems} className="header-menu">
       <props.itemComponent />
     </Menubar>
   )
