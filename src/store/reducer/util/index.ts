@@ -1,11 +1,9 @@
 import { combineReducers } from 'redux';
 
-import entity from '@reducer/entity';
-import util from '@reducer/util';
+import appStatus from '@reducer/util/appStatus';
 
 const reducer = combineReducers({
-  entity,
-  util
+  appStatus
 });
 
 export default reducer;

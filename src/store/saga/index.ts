@@ -1,11 +1,11 @@
 import { all } from 'redux-saga/effects';
 
-import entityMangaSaga from '@saga/entity/manga';
-import entityTagSaga from '@saga/entity/tag';
+import entitySaga from '@saga/entity';
+import utilSaga from '@saga/util';
 
-export default function* rootSaga() {
+export default function* saga() {
   yield all([
-    ...entityMangaSaga(),
-    ...entityTagSaga()
+    ...entitySaga(),
+    ...utilSaga()
   ]);
 }
