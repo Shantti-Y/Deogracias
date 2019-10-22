@@ -1,13 +1,13 @@
 import Dexie from 'dexie';
 
-export enum DeograciasTableName {
+export enum TableName {
   Mangas = "mangas",
   Tags = "tags"
 }
 
-export type DeograciasTableEntity = MangaEntity & TagEntity;
+export type TableEntity = MangaEntity & TagEntity;
 
-class DeograciasDB extends Dexie {
+class AppDataBase extends Dexie {
   public mangas: Dexie.Table<MangaEntity, number>;
   public tags: Dexie.Table<TagEntity, number>;
 
@@ -23,13 +23,13 @@ class DeograciasDB extends Dexie {
   	this.tags = this.table("tags");
   }
 	
-  async selectAllEntities(tableName: DeograciasTableName): Promise<any[]> {
+  async selectAllEntities(tableName: TableName): Promise<any[]> {
   	return await this[tableName].toArray();
   }
 
-  insertEntity(tableName: DeograciasTableName, entity: DeograciasTableEntity): void {
+  insertEntity(tableName: TableName, entity: TableEntity): void {
   	this[tableName].add(entity);
   }
 }
 
-export const deograciasDB = new DeograciasDB;
+export const appDB = new AppDataBase;
