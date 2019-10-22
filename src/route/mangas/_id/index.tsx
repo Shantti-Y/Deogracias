@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
-import { DeograciasTableName, deograciasDB } from '@util/database';
+import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import seedMangas from '../../../../public/seeds/mangas';
+import { TableName, appDB } from '@util/database';
 
 import DrawerItem from '@component/DrawerItem/MangaViewer';
 export const MangaViewerDrawerItem = DrawerItem;
@@ -11,9 +12,21 @@ export const MangaViewerHeaderItem = HeaderItem;
 import ZoomNavigator from '@component/ZoomNavigator';
 import PageNavigator from '@component/PageNavigator';
 
-interface MangasIdProps { }
-const MangasId: FC<MangasIdProps> = props => {
-  const [file, setFile] = useState({
+import { changeSelectedMangaId } from '@action/entity/manga';
+
+import appStatus from '@util/appStatus';
+
+interface ComponentStateProps {
+  selectedMangaId: number;
+  appStatus: appStatus
+}
+interface ComponentDispatchProps {
+  onPageLoad: (mangaId: number) => void;
+}
+interface ComponentOwnProps { }
+type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
+  const MangasId: FC<ComponentProps> = props => {
+  const [manga, setManga] = useState({
     id: undefined,
     name: '',
     pages: [{ url: '' }],
@@ -22,8 +35,19 @@ const MangasId: FC<MangasIdProps> = props => {
   const [currentPageNumber, setCurrentPageNumber] = useState(0);
   const [windowSizePercent, setWindowSizePercent] = useState(100);
 
+  const { id: paramId } = useParams();
+
   useEffect(() => {
-    setFile(seedMangas[12]);
+    if(paramId){
+      const initId = parseInt(paramId);
+      props.onPageLoad(initId);
+      appDB[TableName.Mangas].get({ id: initId }).then(result => {
+        console.log(result)
+        if (result) {
+          setManga(result);
+        }
+      }); 
+    }
   }, []);
 
   const imageSize = (): string => {
@@ -33,18 +57,27 @@ const MangasId: FC<MangasIdProps> = props => {
   return (
     <div id="mangas-_id">
 
-      <img src={file.pages[currentPageNumber].url} style={{ height: imageSize(), width: 'auto' }} />
+      <img src={manga.pages[currentPageNumber].url} style={{ height: imageSize(), width: 'auto' }} />
       <ZoomNavigator
         currentZoomPercent={windowSizePercent}
         onChange={percent => setWindowSizePercent(percent)}
       />
       <PageNavigator
         currentPageIdx={currentPageNumber}
-        maxPageIdx={file.pages.length - 1}
+        maxPageIdx={manga.pages.length - 1}
         onChange={idx => setCurrentPageNumber(idx)}
       />
 
     </div>
   );
 };
-export default MangasId;
+const mapStateToProps = state => ({
+  selectedMangaId: state.entity.manga.selectedMangaId,
+  appStatus: state.util.appStatus.status
+});
+
+const mapDispatchToProps = dispatch => ({
+  onPageLoad: (mangaId: number) => dispatch(changeSelectedMangaId({ mangaId }))
+});
+
+export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(MangasId);

@@ -27,13 +27,13 @@ type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOw
 const MangasNew: FC<ComponentProps> = props => {
 
   const prevMangas = useRef([] as MangaEntity[]);
+  prevMangas.current = props.mangas;
   useEffect(() => {
-    prevMangas.current = props.mangas;
     props.onPageLoad();
   }, []);
   
   if (prevMangas.current.length < props.mangas.length) {
-    return <Redirect to="/dashboard" />
+    return <Redirect to="/" />
   }else{
     return (
       <div>

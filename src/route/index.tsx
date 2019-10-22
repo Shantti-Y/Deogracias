@@ -10,8 +10,8 @@ import MangasId, { MangaViewerDrawerItem, MangaViewerHeaderItem } from '@route/m
 
 interface LayoutProps {
   slot: JSX.Element;
-  drawer: FC<{}>;
-  header: FC<{}>;
+  drawer: FC<any>;
+  header: FC<any>;
 }
 
 interface RouterProps {}
@@ -25,7 +25,9 @@ const Router: FC<RouterProps> = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact render={() => renderRouteWithViewerLayout({slot: <MangasId />, drawer: MangaViewerDrawerItem, header: MangaViewerHeaderItem})} />
+        <Route path="/" exact render={() => renderRouteWithMainLayout({ slot: <Dashboard />, drawer: DashboardDrawerItem, header: DashboardHeaderItem })} />
+        <Route path="/mangas/new" exact render={() => renderRouteWithMainLayout({ slot: <MangasNew />, drawer: MangaEditorDrawerItem, header: NewMangaHeaderItem })} />
+        <Route path="/mangas/:id" render={() => renderRouteWithViewerLayout({slot: <MangasId />, drawer: MangaViewerDrawerItem, header: MangaViewerHeaderItem})} />
       </Switch>
     </BrowserRouter>
   )

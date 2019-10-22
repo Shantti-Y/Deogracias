@@ -1,7 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { DeograciasTableName, deograciasDB } from '@util/database';
-
-import seedMangas from '../../public/seeds/mangas';
+import { connect } from 'react-redux';
 
 import DrawerItem from '@component/DrawerItem/Dashboard';
 export const DashboardDrawerItem = DrawerItem;
@@ -10,19 +8,37 @@ export const DashboardHeaderItem = HeaderItem;
 
 import MangaList from '@component/MangaList';
 
-interface DashboardProps { }
-const Dashboard: FC<DashboardProps> = props => {
-  const [mangas, setMangas] = useState([] as MangaEntity[]);
+import { fetchTags } from '@action/entity/tag';
+import { fetchMangas } from '@action/entity/manga';
+
+interface ComponentStateProps {
+  mangas: MangaEntity[];
+}
+interface ComponentDispatchProps {
+  onPageLoad: () => void;
+}
+interface ComponentOwnProps {}
+type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
+const Dashboard: FC<ComponentProps> = props => {
 
   useEffect(() => {
-    setMangas(seedMangas);
-    // deograciasDB.selectAllEntities(DeograciasTableName.Mangas).then(result => {
-    //   setFiles(result as never[]);
-    // });
+    props.onPageLoad();
   }, []);
-
+  
   return (
-    <MangaList mangas={mangas} />
+    <MangaList mangas={props.mangas} />
   );
 };
-export default Dashboard;
+
+const mapStateToProps = state => ({
+  mangas: state.entity.manga.mangas
+});
+
+const mapDispatchToProps = dispatch => ({
+  onPageLoad: () => {
+    dispatch(fetchTags());
+    dispatch(fetchMangas());
+  }
+});
+
+export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(Dashboard);
