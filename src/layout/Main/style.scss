@@ -1,4 +1,4 @@
-#layout {
+#layout-main {
   max-width: 100vw;
 
   .left-column {
@@ -7,15 +7,23 @@
 
   .right-column {
     transition-duration: .3s;
-
-    .page-container {
-      margin: 35px 25px;
-    }
   }
 
 }
 
-.drawer-opened {
+#layout-main.drawer-closed {
+  .left-column {
+
+  }
+
+  .right-column {
+    .page-container {
+      margin: 87px 25px 35px 25px;
+    }
+  }
+}
+
+#layout-main.drawer-opened {
   .left-column {
 
   }

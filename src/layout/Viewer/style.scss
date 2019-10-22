@@ -1,0 +1,40 @@
+#layout-viewer {
+  max-width: 100vw;
+
+  .left-column {
+    
+  }
+
+  .right-column {
+    transition-duration: .3s;
+  }
+}
+
+#layout-viewer.drawer-closed {
+  .left-column {
+
+  }
+
+  .right-column {
+    width: 100%;
+    .page-container {
+      margin-top: 52px;
+      text-align: center;
+      position: relative;
+    }
+  }
+}
+
+#layout-viewer.drawer-opened {
+  .left-column {
+
+  }
+
+  .right-column {
+    margin-left: 280px;
+    width: calc(100% - 280px) !important;
+    .page-container {
+      width: inherit;
+    }
+  }
+}

@@ -17,7 +17,7 @@ const Layout: FC<LayoutProps> = props => {
   }
 
   return (
-    <div id="layout" className={layoutModeClassName()}>
+    <div id="layout-main" className={layoutModeClassName()}>
       <DrawerMenu
         opened={drawerOpened}
         itemComponent={props.drawerItem}
