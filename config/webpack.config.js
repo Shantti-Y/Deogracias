@@ -8,7 +8,8 @@ module.exports = {
 	entry: { index: [modulePath.resolve(__dirname, `${entryDir}/index.tsx`)] },
 	output: {
 		filename: 'main.js',
-		path: modulePath.resolve(__dirname, `${outDir}`)
+		path: modulePath.resolve(__dirname, `${outDir}`),
+		publicPath: '/'
 	},
 	target: "web",
 	mode: "development",
@@ -65,7 +66,8 @@ module.exports = {
 		inline: true,
 		contentBase: modulePath.join(__dirname, './'),
 		port: 9000,
-		hot: true
+		hot: true,
+		historyApiFallback: true
 	},
 	plugins: [new HtmlWebpackPlugin({ template: './index.html' })],
 	resolve: {
