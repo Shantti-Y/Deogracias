@@ -76,9 +76,9 @@ module.exports = {
 			'@layout': modulePath.resolve(__dirname, `${entryDir}/layout`),
 			'@route': modulePath.resolve(__dirname, `${entryDir}/route`),
 			'@store': modulePath.resolve(__dirname, `${entryDir}/store`),
-			'@action': modulePath.resolve(__dirname, `${entryDir}/action`),
-			'@reducer': modulePath.resolve(__dirname, `${entryDir}/reducer`),
-			'@saga': modulePath.resolve(__dirname, `${entryDir}/saga`),
+			'@action': modulePath.resolve(__dirname, `${entryDir}/store/action`),
+			'@reducer': modulePath.resolve(__dirname, `${entryDir}/store/reducer`),
+			'@saga': modulePath.resolve(__dirname, `${entryDir}/store/saga`),
 			'@util': modulePath.resolve(__dirname, `${entryDir}/util`),
 			'@public': modulePath.resolve(__dirname, `./public`)
 		}
