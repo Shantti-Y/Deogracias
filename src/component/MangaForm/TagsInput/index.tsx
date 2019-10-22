@@ -1,29 +1,41 @@
 import React, { FC } from 'react';
+import { connect } from 'react-redux';
 
 import { MultiSelect } from 'primereact/multiselect';
 
-interface TagsInputProps {
+import './style.scss';
+
+interface ComponentOwnProps {
   tagIds: number[],
   onChange: (newTagIds: number[]) => void
 }
-const TagsInput: FC<TagsInputProps> = props => {
-  const citySelectItems = [
-    { label: 'New York', value: 1 },
-    { label: 'Rome', value: 2 },
-    { label: 'London', value: 3 },
-    { label: 'Istanbul', value: 4 },
-    { label: 'Paris', value: 5 }
-  ];
+interface ComponentStateProps {
+  tags: TagEntity[]
+}
+type ComponentProps = ComponentOwnProps & ComponentStateProps;
+const TagsInput: FC<ComponentProps> = props => {
+
+  const selectableItems = () => {
+    return props.tags.map(tag => ({
+      label: tag.name,
+      value: tag.id
+    }));
+  }
 
   return (
     <div>
       Tags
       <MultiSelect
         value={props.tagIds}
-        options={citySelectItems}
+        options={selectableItems()}
         onChange={event => props.onChange(event.value)}
       />
     </div>
   );
 };
-export default TagsInput;
+
+const mapStateToProps = state => ({
+  tags: state.entity.tag.tags
+});
+
+export default connect<ComponentStateProps>(mapStateToProps, {})(TagsInput);

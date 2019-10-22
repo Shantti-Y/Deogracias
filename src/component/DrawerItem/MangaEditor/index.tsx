@@ -1,21 +1,14 @@
 import React, { FC, useState, useEffect } from 'react';
-import { DeograciasTableName, deograciasDB } from '@util/database';
+import { connect } from 'react-redux';
 
 import ItemContainer from '@component/DrawerItem/ItemContainer';
 
 import './style.scss';
 
 interface MangaEditorProps {
-
+  tags: TagEntity[]
 }
 const MangaEditor: FC<MangaEditorProps> = props => {
-  const [tags, setTags] = useState([] as TagEntity[]);
-
-  useEffect(() => {
-    deograciasDB.selectAllEntities(DeograciasTableName.Tags).then(result => {
-      setTags(result as never[]);
-    });
-  }, []);
 
   const menuItems = () => {
     const newMangaMenu = {
@@ -29,8 +22,8 @@ const MangaEditor: FC<MangaEditorProps> = props => {
     const tagList = {
       label: 'Tags',
       icon: 'pi pi-fw pi-tags',
-      items: tags.length > 0 ?
-        tags.map(tag => {
+      items: props.tags.length > 0 ?
+        props.tags.map(tag => {
           return { label: tag.name }
         }) :
         [{ label: 'No Tag' }]
@@ -44,4 +37,8 @@ const MangaEditor: FC<MangaEditorProps> = props => {
     />
   )
 }
-export default MangaEditor;
+const mapStateToProps = state => ({
+  tags: state.entity.tag.tags
+});
+
+export default connect(mapStateToProps, null)(MangaEditor);

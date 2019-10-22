@@ -1,5 +1,4 @@
 import React, { FC, useState, useEffect } from 'react';
-import { DeograciasTableName, deograciasDB } from '@util/database';
 
 import ItemContainer from '@component/DrawerItem/ItemContainer';
 
@@ -10,12 +9,6 @@ interface DashboardProps {
 }
 const Dashboard: FC<DashboardProps> = props => {
   const [tags, setTags] = useState([] as TagEntity[]);
-
-  useEffect(() => {
-    deograciasDB.selectAllEntities(DeograciasTableName.Tags).then(result => {
-      setTags(result as never[]);
-    });
-  }, []);
 
   const menuItems = () => {
     const newMangaMenu = {
