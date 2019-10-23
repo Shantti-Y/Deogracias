@@ -26,11 +26,25 @@ function* invokeCreateTag(action) {
   yield put(fetchTags());
   yield put(setSuccess());
 }
+function* invokeUpdateTag(action) {
+  const { tag } = action.payload;
+  yield call(() => appDB[TableName.Tags].update(tag.id, tag));
+  yield put(fetchTags());
+  yield put(setSuccess());
+}
+function* invokeDeleteTag(action) {
+  const { tagId } = action.payload;
+  yield call(() => appDB[TableName.Tags].delete(tagId));
+  yield put(fetchTags());
+  yield put(setSuccess());
+}
 
 // Bundle api functions to watcher and saga
 function* watchAsyncTriggers() {
   yield takeLatest(FETCH_TAGS, invokeFetchTags);
   yield takeLatest(CREATE_TAG, invokeCreateTag);
+  yield takeLatest(UPDATE_TAG, invokeUpdateTag);
+  yield takeLatest(DELETE_TAG, invokeDeleteTag);
 }
 
 export default function* saga() {

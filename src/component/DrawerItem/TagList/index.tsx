@@ -34,12 +34,17 @@ const TagList: FC<ComponentProps> = props => {
     return tag ? tag.name : '';
   }
 
-  const handleConfirmationModalOpened = (id: number) => {
+  const handleConfirmationModalClose = () => {
+    setTargetTagId(null);
+    setModalOpened(false);
+  }
+
+  const handleConfirmationModalOpen = (id: number) => {
     setTargetTagId(id);
     setModalOpened(true);
   }
 
-  const handleConfirmationModalDeletedTag = () => {
+  const handleConfirmationModalDeleteTag = () => {
     props.onDelete(targetTagId);
     setModalOpened(false);
   }
@@ -60,14 +65,14 @@ const TagList: FC<ComponentProps> = props => {
               opened={true}
               onClose={() => setTargetTagId(null)}
               onSubmit={tag => props.onSubmit(tag)}
-              initialName={tag.name}
+              initialTag={tag}
             />);
           } else {
           return (
             <div className="tag-link" key={idx}>
               <Link to={`/tags/${tag.id}`}><i className="pi pi-circle-on" />{tag.name}</Link>
               <Button icon="pi pi-pencil" className="button p-button-info" onClick={() => setTargetTagId(tag.id)} />
-              <Button icon="pi pi-times" className="button p-button-danger" onClick={() => handleConfirmationModalOpened(tag.id!!)} />
+              <Button icon="pi pi-times" className="button p-button-danger" onClick={() => handleConfirmationModalOpen(tag.id!!)} />
             </div>
           );
         }
@@ -76,8 +81,8 @@ const TagList: FC<ComponentProps> = props => {
       <ConfirmationModal
         opened={modalOpened}
         name={targetTagName()}
-        onDelete={() => handleConfirmationModalDeletedTag()}
-        onClose={() => setModalOpened(false)}
+        onDelete={() => handleConfirmationModalDeleteTag()}
+        onClose={() => handleConfirmationModalClose()}
       />
     </div>
   )

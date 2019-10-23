@@ -37,7 +37,7 @@ return (
     style={{ width: '50vw' }}
     onHide={() => props.onClose()}
     footer={<Footer />}
-    appendTo={document.getElementById('example')!!}
+    appendTo={document.getElementById('app')!!}
   >
     Once it is removed, you neither cannot undelete nor cannot recover it.
   </Dialog>

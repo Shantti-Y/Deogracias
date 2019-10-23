@@ -16,31 +16,32 @@ interface ComponentOwnProps {
   opened: boolean;
   onClose: () => void;
   onSubmit: (tag: TagEntity) => void;
-  initialName?: string
+  initialTag?: TagEntity
 }
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const TagForm: FC<ComponentProps> = props => {
-  const [name, setName] = useState('');
+  const [tag, setTag] = useState({ name: '' } as TagEntity);
 
   useEffect(() => {
-    if(props.initialName){
-      setName(props.initialName)
+    if (props.initialTag){
+      setTag(Object.assign({}, props.initialTag));
     }
   }, []);
 
   const handleChange = (event: React.FormEvent) => {
     const target = event.target as HTMLInputElement;
-    setName(target.value);
+    const newTag = Object.assign({}, tag);
+    newTag.name = target.value;
+    setTag(newTag);
   }
 
   const handleSubmit = () => {
-    const tag = { name: name }
     props.onSubmit(tag);
   }
 
   return (
     <div className="tag-form">
-      <InputText value={name} onChange={event => handleChange(event)} />
+      <InputText value={tag.name} onChange={event => handleChange(event)} />
       <Button
         icon="pi pi-check"
         className="button p-button-success"
