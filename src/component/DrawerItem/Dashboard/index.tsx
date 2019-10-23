@@ -1,40 +1,27 @@
 import React, { FC, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import ItemContainer from '@component/DrawerItem/ItemContainer';
+import { PanelMenu } from 'primereact/panelmenu';
 
 import './style.scss';
 
-interface DashboardProps {
+import MenuItem from '@component/DrawerItem/MenuItem';
+import NewTagItem from '@component/DrawerItem/NewTagItem';
+import TagList from '@component/DrawerItem/TagList';
+
+interface ComponentProps {
 
 }
-const Dashboard: FC<DashboardProps> = props => {
-  const [tags, setTags] = useState([] as TagEntity[]);
-
-  const menuItems = () => {
-    const newMangaMenu = {
-      label: 'New Manga',
-      icon: 'pi pi-fw pi-upload',
-    };
-    const newTagMenu = {
-      label: 'New Tag',
-      icon: 'pi pi-fw pi-bookmark'
-    };
-    const tagList = {
-      label: 'Tags',
-      icon: 'pi pi-fw pi-tags',
-      items: tags.length > 0 ?
-          tags.map(tag => {
-            return { label: tag.name }
-          }) :
-          [{ label: 'No Tag' }]
-        }
-    return [newMangaMenu, newTagMenu, tagList]
-  }
+const Dashboard: FC<ComponentProps> = props => {
+  const history = useHistory();
 
   return (
-    <ItemContainer
-      menuItems={menuItems()}
-    />
+    <div className="drawer-dashboard drawer-menu-list">
+      <MenuItem icon="pi pi-image" text="New Manga" onClick={() => history.push(`/mangas/new`)} />
+      <NewTagItem />
+      <TagList />
+    </div>
+    
   )
 }
 export default Dashboard;

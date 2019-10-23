@@ -15,6 +15,7 @@ const DrawerMenu: FC<DrawerMenuProps> = props => {
   }
   return (
     <Sidebar
+      className="drawer-menu"
       modal={false}
       visible={props.opened}
       onHide={() => handleClosed()}

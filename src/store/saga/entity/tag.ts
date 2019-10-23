@@ -1,4 +1,4 @@
-import { put, all, takeLatest } from 'redux-saga/effects';
+import { put, all, call, takeLatest } from 'redux-saga/effects';
 
 import { TableName, appDB } from '@util/database';
 
@@ -11,15 +11,20 @@ import {
   setTags
 } from '@action/entity/tag';
 
+import {
+  setSuccess
+} from '@action/util/appStatus';
+
 // APIs
 function* invokeFetchTags(action) {
-  yield(appDB[TableName.Tags].toArray(result => put(setTags(result))));
+  const tags = yield call(() => appDB[TableName.Tags].toArray());
+  yield put(setTags({ tags }));
 }
 function* invokeCreateTag(action) {
   const { tag } = action.payload;
-  yield (appDB[TableName.Tags])
-    .add(tag)
-    .then(() => put(fetchTags()));
+  yield call(() => appDB[TableName.Tags].add(tag));
+  yield put(fetchTags());
+  yield put(setSuccess());
 }
 
 // Bundle api functions to watcher and saga

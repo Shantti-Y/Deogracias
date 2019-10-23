@@ -7,6 +7,9 @@
 
   .right-column {
     transition-duration: .3s;
+    .page-container {
+      margin: 80px 20px 35px 20px;
+    }
   }
 
 }
@@ -17,9 +20,7 @@
   }
 
   .right-column {
-    .page-container {
-      margin: 87px 25px 35px 25px;
-    }
+    width: 100%;
   }
 }
 
@@ -30,6 +31,9 @@
 
   .right-column {
     margin-left: 280px;
-
+    width: calc(100vw - 280px) !important;
+    .page-container {
+      width: calc(inherit - 40px);
+    }
   }
 }

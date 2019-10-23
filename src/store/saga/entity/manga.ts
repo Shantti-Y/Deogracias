@@ -22,9 +22,16 @@ function* invokeFetchMangas(action) {
   const mangas = yield call(() => appDB[TableName.Mangas].toArray());
   yield put(setMangas({ mangas }));
 }
+// TODO: Add catch handler if some kinds of db transaction error happens.
 function* invokeCreateManga(action) {
   const { manga } = action.payload;
   yield call(() => appDB[TableName.Mangas].add(manga));
+  yield put(fetchMangas());
+  yield put(setSuccess());
+}
+function* invokeDeleteManga(action) {
+  const { mangaId } = action.payload;
+  yield call(() => appDB[TableName.Mangas].delete(mangaId));
   yield put(fetchMangas());
   yield put(setSuccess());
 }
@@ -37,6 +44,7 @@ function* invokeChangeSelectedMangaId(action) {
 function* watchAsyncTriggers() {
   yield takeLatest(FETCH_MANGAS, invokeFetchMangas);
   yield takeLatest(CREATE_MANGA, invokeCreateManga);
+  yield takeLatest(DELETE_MANGA, invokeDeleteManga);
   yield takeLatest(CHANGE_SELECTED_MANGA_ID, invokeChangeSelectedMangaId);
 }
 
