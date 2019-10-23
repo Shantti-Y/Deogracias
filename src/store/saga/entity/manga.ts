@@ -29,6 +29,12 @@ function* invokeCreateManga(action) {
   yield put(fetchMangas());
   yield put(setSuccess());
 }
+function* invokeUpdateManga(action) {
+  const { manga } = action.payload;
+  yield call(() => appDB[TableName.Mangas].update(manga.id, manga));
+  yield put(fetchMangas());
+  yield put(setSuccess());
+}
 function* invokeDeleteManga(action) {
   const { mangaId } = action.payload;
   yield call(() => appDB[TableName.Mangas].delete(mangaId));
@@ -44,6 +50,7 @@ function* invokeChangeSelectedMangaId(action) {
 function* watchAsyncTriggers() {
   yield takeLatest(FETCH_MANGAS, invokeFetchMangas);
   yield takeLatest(CREATE_MANGA, invokeCreateManga);
+  yield takeLatest(UPDATE_MANGA, invokeUpdateManga);
   yield takeLatest(DELETE_MANGA, invokeDeleteManga);
   yield takeLatest(CHANGE_SELECTED_MANGA_ID, invokeChangeSelectedMangaId);
 }

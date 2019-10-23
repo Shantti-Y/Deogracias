@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useRef } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { Button } from 'primereact/button';
@@ -16,6 +16,7 @@ enum ImageLocation {
 interface ComponentStateProps {}
 interface ComponentDispatchProps {}
 interface ComponentOwnProps {
+  initialManga?: MangaEntity;
   onSubmit: (manga: MangaEntity) => void;
 }
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
@@ -23,6 +24,14 @@ const MangaForm: FC<ComponentProps> = props => {
   const [name, setName] = useState('' as string);
   const [imageUrls, setImageUrls] = useState([] as string[]);
   const [tagIds, setTagIds] = useState([] as number[]);
+
+  useEffect(() => {
+    if (props.initialManga){
+      setName(props.initialManga.name);
+      setImageUrls(props.initialManga.pages.map(page => page.url)),
+      setTagIds(props.initialManga.tagIds)
+    }
+  }, [props.initialManga]);
 
   const insertImageUrls = (additionalImageUrls: string[], imageLocation: ImageLocation) => {
     const formattedImageUrls = additionalImageUrls
