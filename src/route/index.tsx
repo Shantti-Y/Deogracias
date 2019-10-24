@@ -8,6 +8,7 @@ import Dashboard, { DashboardDrawerItem, DashboardHeaderItem } from '@route/dash
 import MangasNew, { MangaEditorDrawerItem as MangaEditorDrawerItemOnNew, NewMangaHeaderItem } from '@route/mangas/new';
 import MangasId, { MangaViewerDrawerItem, MangaViewerHeaderItem } from '@route/mangas/_id';
 import MangasIdEdit, { MangaEditorDrawerItem as MangaEditorDrawerItemOnEdit, EditMangaHeaderItem } from '@route/mangas/_id/edit';
+import TagsIdEdit, { DashboardDrawerItem as TagsIdDashboardDrawerItem, DashboardHeaderItem as TagsIdDashboardHeaderItem } from '@route/tags/_id';
 
 interface LayoutProps {
   slot: JSX.Element;
@@ -30,6 +31,7 @@ const Router: FC<RouterProps> = () => {
         <Route path="/mangas/new" exact render={() => renderRouteWithMainLayout({ slot: <MangasNew />, drawer: MangaEditorDrawerItemOnNew, header: NewMangaHeaderItem })} />
         <Route path="/mangas/:id" exact render={() => renderRouteWithViewerLayout({slot: <MangasId />, drawer: MangaViewerDrawerItem, header: MangaViewerHeaderItem})} />
         <Route path="/mangas/:id/edit" exact render={() => renderRouteWithMainLayout({ slot: <MangasIdEdit />, drawer: MangaEditorDrawerItemOnEdit, header: EditMangaHeaderItem })} />
+        <Route path="/tags/:id" exact render={() => renderRouteWithMainLayout({ slot: <TagsIdEdit />, drawer: TagsIdDashboardDrawerItem, header: TagsIdDashboardHeaderItem })} />
       </Switch>
     </BrowserRouter>
   )

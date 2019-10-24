@@ -16,7 +16,7 @@ class AppDataBase extends Dexie {
 
   	// テーブルとインデックスを定義する
   	this.version(1).stores({
-  		mangas: '++id, name, pages, tagIds',
+  		mangas: '++id, name, pages, *tagIds',
   		tags: '++id, name'
   	});
   	this.mangas = this.table("mangas");

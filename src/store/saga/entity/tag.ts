@@ -8,7 +8,9 @@ import {
   UPDATE_TAG,
   DELETE_TAG,
   fetchTags,
-  setTags
+  setTags,
+  CHANGE_SELECTED_TAG_ID,
+  setSelectedTagId
 } from '@action/entity/tag';
 
 import {
@@ -38,6 +40,10 @@ function* invokeDeleteTag(action) {
   yield put(fetchTags());
   yield put(setSuccess());
 }
+function* invokeChangeSelectedTagId(action) {
+  const { tagId } = action.payload;
+  yield put(setSelectedTagId({ tagId }));
+}
 
 // Bundle api functions to watcher and saga
 function* watchAsyncTriggers() {
@@ -45,6 +51,7 @@ function* watchAsyncTriggers() {
   yield takeLatest(CREATE_TAG, invokeCreateTag);
   yield takeLatest(UPDATE_TAG, invokeUpdateTag);
   yield takeLatest(DELETE_TAG, invokeDeleteTag);
+  yield takeLatest(CHANGE_SELECTED_TAG_ID, invokeChangeSelectedTagId);
 }
 
 export default function* saga() {

@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import seedMangas from '../../public/seeds/mangas';
+import { TableName, appDB } from '@util/database';
 
 import DrawerItem from '@component/DrawerItem/Dashboard';
 export const DashboardDrawerItem = DrawerItem;
@@ -9,19 +11,52 @@ export const DashboardHeaderItem = HeaderItem;
 
 import MangaList from '@component/MangaList';
 
-interface DashboardProps { }
-const Dashboard: FC<DashboardProps> = props => {
+import { fetchTags, changeSelectedTagId } from '@action/entity/tag';
+
+interface ComponentStateProps {}
+interface ComponentDispatchProps {
+  onPageLoad: (tagId: number) => void;
+}
+interface ComponentOwnProps { }
+type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
+const TagsId: FC<ComponentProps> = props => {
+  const [tag, setTag] = useState({
+    id: undefined,
+    name: ''
+  } as TagEntity);
   const [mangas, setMangas] = useState([] as MangaEntity[]);
 
+  const { id: paramId } = useParams();
+
   useEffect(() => {
-    setMangas(seedMangas);
-    // deograciasDB.selectAllEntities(DeograciasTableName.Mangas).then(result => {
-    //   setFiles(result as never[]);
-    // });
+    if (paramId) {
+      const initId = parseInt(paramId);
+      props.onPageLoad(initId);
+      appDB[TableName.Tags].get({ id: initId }).then(result => {
+        if (result) {
+          setTag(result);
+        }
+      });
+      appDB[TableName.Mangas].where({ tagIds: initId }).toArray((result => {
+        if (result) {
+          setMangas(result);
+        }
+      }));
+    }
   }, []);
 
   return (
     <MangaList mangas={mangas} />
   );
 };
-export default Dashboard;
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({
+  onPageLoad: (tagId: number) => {
+    dispatch(changeSelectedTagId(tagId))
+    dispatch(fetchTags());
+  }
+});
+
+export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(TagsId);
