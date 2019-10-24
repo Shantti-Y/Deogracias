@@ -5,9 +5,7 @@ import MenuItem from '@component/DrawerItem/MenuItem';
 import NewTagItem from '@component/DrawerItem/NewTagItem';
 import TagList from '@component/DrawerItem/TagList';
 
-import './style.scss';
-
-interface ComponentProps {}
+interface ComponentProps { }
 const MangaEditor: FC<ComponentProps> = props => {
   const history = useHistory();
 

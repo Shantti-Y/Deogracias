@@ -2,8 +2,6 @@ import React, { FC, useState, useEffect } from 'react';
 
 import ItemContainer from '@component/DrawerItem/ItemContainer';
 
-import './style.scss';
-
 interface MangaEditorProps {
 
 }

@@ -1,10 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { PanelMenu } from 'primereact/panelmenu';
-
-import './style.scss';
-
 import MenuItem from '@component/DrawerItem/MenuItem';
 import NewTagItem from '@component/DrawerItem/NewTagItem';
 import TagList from '@component/DrawerItem/TagList';
@@ -21,7 +17,7 @@ const Dashboard: FC<ComponentProps> = props => {
       <NewTagItem />
       <TagList />
     </div>
-    
+
   )
 }
 export default Dashboard;

@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 
 import { TableName, appDB } from '@util/database';
 
-import DrawerItem from '@component/DrawerItem/Dashboard';
+import DrawerItem from './Drawer';
 export const DashboardDrawerItem = DrawerItem;
-import HeaderItem from '@component/HeaderItem/Dashboard';
+import HeaderItem from './Header';
 export const DashboardHeaderItem = HeaderItem;
 
 import MangaList from '@component/MangaList';
 
 import { fetchTags, changeSelectedTagId } from '@action/entity/tag';
 
-interface ComponentStateProps {}
+interface ComponentStateProps { }
 interface ComponentDispatchProps {
   onPageLoad: (tagId: number) => void;
 }

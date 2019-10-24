@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import DrawerItem from '@component/DrawerItem/Dashboard';
+import DrawerItem from './Drawer';
 export const DashboardDrawerItem = DrawerItem;
-import HeaderItem from '@component/HeaderItem/Dashboard';
+import HeaderItem from './Header';
 export const DashboardHeaderItem = HeaderItem;
 
 import MangaList from '@component/MangaList';
@@ -17,14 +17,14 @@ interface ComponentStateProps {
 interface ComponentDispatchProps {
   onPageLoad: () => void;
 }
-interface ComponentOwnProps {}
+interface ComponentOwnProps { }
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const Dashboard: FC<ComponentProps> = props => {
 
   useEffect(() => {
     props.onPageLoad();
   }, []);
-  
+
   return (
     <MangaList mangas={props.mangas} />
   );

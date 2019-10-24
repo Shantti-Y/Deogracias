@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 
 import { TableName, appDB } from '@util/database';
 
-import DrawerItem from '@component/DrawerItem/MangaViewer';
+import DrawerItem from './Drawer';
 export const MangaViewerDrawerItem = DrawerItem;
-import HeaderItem from '@component/HeaderItem/MangaViewer';
+import HeaderItem from './Header';
 export const MangaViewerHeaderItem = HeaderItem;
 
 import ZoomNavigator from '@component/ZoomNavigator';
@@ -25,7 +25,7 @@ interface ComponentDispatchProps {
 }
 interface ComponentOwnProps { }
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
-  const MangasId: FC<ComponentProps> = props => {
+const MangasId: FC<ComponentProps> = props => {
   const [manga, setManga] = useState({
     id: undefined,
     name: '',
@@ -38,7 +38,7 @@ type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOw
   const { id: paramId } = useParams();
 
   useEffect(() => {
-    if(paramId){
+    if (paramId) {
       const initId = parseInt(paramId);
       props.onPageLoad(initId);
       appDB[TableName.Mangas].get({ id: initId }).then(result => {
@@ -46,7 +46,7 @@ type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOw
         if (result) {
           setManga(result);
         }
-      }); 
+      });
     }
   }, []);
 

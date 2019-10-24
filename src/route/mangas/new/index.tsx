@@ -2,9 +2,9 @@ import React, { FC, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import DrawerItem from '@component/DrawerItem/MangaEditor';
+import DrawerItem from './Drawer';
 export const MangaEditorDrawerItem = DrawerItem;
-import HeaderItem from '@component/HeaderItem/NewManga';
+import HeaderItem from './Header';
 export const NewMangaHeaderItem = HeaderItem;
 
 import MangaForm from '@component/MangaForm';

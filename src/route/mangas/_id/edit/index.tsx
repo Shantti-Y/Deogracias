@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 
 import { TableName, appDB } from '@util/database';
 
-import DrawerItem from '@component/DrawerItem/MangaEditor';
+import DrawerItem from './Drawer';
 export const MangaEditorDrawerItem = DrawerItem;
-import HeaderItem from '@component/HeaderItem/EditManga';
+import HeaderItem from './Header';
 export const EditMangaHeaderItem = HeaderItem;
 
 import MangaForm from '@component/MangaForm';
@@ -24,7 +24,7 @@ interface ComponentDispatchProps {
   onPageLoad: (mangaId: number) => void;
   onSubmit: (manga: MangaEntity) => void;
 }
-interface ComponentOwnProps {}
+interface ComponentOwnProps { }
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const MangasIdEdit: FC<ComponentProps> = props => {
   const [manga, setManga] = useState({

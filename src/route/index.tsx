@@ -6,9 +6,9 @@ import ViewerLayout from '@layout/Viewer';
 
 import Dashboard, { DashboardDrawerItem, DashboardHeaderItem } from '@route/dashboard';
 import MangasNew, { MangaEditorDrawerItem as MangaEditorDrawerItemOnNew, NewMangaHeaderItem } from '@route/mangas/new';
-import MangasId, { MangaViewerDrawerItem, MangaViewerHeaderItem } from '@route/mangas/_id';
+import MangasId, { MangaViewerDrawerItem, MangaViewerHeaderItem } from '@route/mangas/_id/index';
 import MangasIdEdit, { MangaEditorDrawerItem as MangaEditorDrawerItemOnEdit, EditMangaHeaderItem } from '@route/mangas/_id/edit';
-import TagsIdEdit, { DashboardDrawerItem as TagsIdDashboardDrawerItem, DashboardHeaderItem as TagsIdDashboardHeaderItem } from '@route/tags/_id';
+import TagsIdEdit, { DashboardDrawerItem as TagsIdDashboardDrawerItem, DashboardHeaderItem as TagsIdDashboardHeaderItem } from '@route/tags/_id/index';
 
 interface LayoutProps {
   slot: JSX.Element;
