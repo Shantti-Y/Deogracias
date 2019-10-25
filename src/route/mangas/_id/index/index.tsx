@@ -42,13 +42,12 @@ const MangasId: FC<ComponentProps> = props => {
       const initId = parseInt(paramId);
       props.onPageLoad(initId);
       appDB[TableName.Mangas].get({ id: initId }).then(result => {
-        console.log(result)
         if (result) {
           setManga(result);
         }
       });
     }
-  }, []);
+  }, [paramId]);
 
   const imageSize = (): string => {
     return `${windowSizePercent}vh`

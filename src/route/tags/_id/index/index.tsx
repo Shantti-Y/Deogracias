@@ -43,7 +43,7 @@ const TagsId: FC<ComponentProps> = props => {
         }
       }));
     }
-  }, []);
+  }, [paramId]);
 
   return (
     <MangaList mangas={mangas} />
