@@ -81,8 +81,7 @@ module.exports = {
 			'@action': modulePath.resolve(__dirname, `${entryDir}/store/action`),
 			'@reducer': modulePath.resolve(__dirname, `${entryDir}/store/reducer`),
 			'@saga': modulePath.resolve(__dirname, `${entryDir}/store/saga`),
-			'@util': modulePath.resolve(__dirname, `${entryDir}/util`),
-			'@public': modulePath.resolve(__dirname, `./public`)
+			'@util': modulePath.resolve(__dirname, `${entryDir}/util`)
 		}
 	}
 };
