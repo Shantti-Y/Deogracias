@@ -12,11 +12,11 @@ import MangaForm from '@component/MangaForm';
 import { fetchTags } from '@action/entity/tag';
 import { createManga } from '@action/entity/manga';
 
-import appStatus from '@util/appStatus';
+import { statusType } from '@util/appStatus';
 
 interface ComponentStateProps {
   mangas: MangaEntity[];
-  appStatus: appStatus
+  appStatus: statusType
 }
 interface ComponentDispatchProps {
   onPageLoad: () => void;

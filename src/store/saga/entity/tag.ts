@@ -3,8 +3,8 @@ import { put, all, call, takeLatest } from 'redux-saga/effects';
 import { TableName, appDB } from '@util/database';
 
 import {
-  fetchTags,
-  fetchTagsType,
+  fetchAllTags,
+  fetchAllTagsType,
   createTag,
   createTagType,
   updateTag,
@@ -18,31 +18,39 @@ import {
 } from '@action/entity/tag';
 
 import {
-  setSuccess
+  setSuccessStatus,
+  setWarningStatus,
+  setDangerStatus
 } from '@action/util/appStatus';
 
+import {
+  successStatus,
+  warningStatus,
+  dangerStatus
+} from '@util/appStatus';
+
 // APIs
-function* invokeFetchTags(action: fetchTagsType) {
+function* invokeFetchAllTags(action: fetchAllTagsType) {
   const tags = yield call(() => appDB[TableName.Tags].toArray());
   yield put(setTags.action(tags));
 }
 function* invokeCreateTag(action: createTagType) {
   const { tag } = action.payload;
   yield call(() => appDB[TableName.Tags].add(tag));
-  yield put(fetchTags.action());
-  yield put(setSuccess());
+  yield put(fetchAllTags.action());
+  yield put(setSuccessStatus.action(successStatus.CREATED_TAG));
 }
 function* invokeUpdateTag(action: updateTagType) {
   const { tag } = action.payload;
   yield call(() => appDB[TableName.Tags].update(tag.id!!, tag));
-  yield put(fetchTags.action());
-  yield put(setSuccess());
+  yield put(fetchAllTags.action());
+  yield put(setSuccessStatus.action(successStatus.UPDATED_TAG));
 }
 function* invokeDeleteTag(action: deleteTagType) {
   const { tagId } = action.payload;
   yield call(() => appDB[TableName.Tags].delete(tagId));
-  yield put(fetchTags.action());
-  yield put(setSuccess());
+  yield put(fetchAllTags.action());
+  yield put(setWarningStatus.action(warningStatus.DELETED_TAG));
 }
 function* invokeChangeSelectedTagId(action: changeSelectedTagIdType) {
   const { tagId } = action.payload;
@@ -51,7 +59,7 @@ function* invokeChangeSelectedTagId(action: changeSelectedTagIdType) {
 
 // Bundle api functions to watcher and saga
 function* watchAsyncTriggers() {
-  yield takeLatest(fetchTags.name, invokeFetchTags);
+  yield takeLatest(fetchAllTags.name, invokeFetchAllTags);
   yield takeLatest(createTag.name, invokeCreateTag);
   yield takeLatest(updateTag.name, invokeUpdateTag);
   yield takeLatest(deleteTag.name, invokeDeleteTag);

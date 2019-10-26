@@ -1,34 +1,49 @@
 import { put, all, takeLatest } from 'redux-saga/effects';
 
 import {
-  SET_NONE,
-  SET_SUCCESS,
-  SET_DANGER,
-  setNone,
+  setBasicStatus,
+  setBasicStatusType,
+  setSuccessStatus,
+  setSuccessStatusType,
+  setWarningStatus,
+  setWarningStatusType,
+  setDangerStatus,
+  setDangerStatusType,
   setStatus
 } from '@action/util/appStatus';
 
-import AppStatus from '@util/appStatus';
+import { 
+  basicStatus
+} from '@util/appStatus';
 
 // APIs
-function* invokeSetNone(action) {
-  yield put(setStatus(AppStatus.NONE));
+function* invokeSetBasicStatus(action: setBasicStatusType) {
+  const { status } = action.payload
+  yield put(setStatus.action(status));
 };
 
-function* invokeSetSuccess(action) {
-  yield put(setStatus(AppStatus.SUCCESS));
-  yield put(setNone());
+function* invokeSetSuccessStatus(action: setSuccessStatusType) {
+  const { status } = action.payload
+  yield put(setStatus.action(status));
+  yield put(setStatus.action(basicStatus.NONE));
 };
-function* invokeSetDanger(action) {
-  yield put(setStatus(AppStatus.DANGER));
-  yield put(setNone());
+function* invokeSetWarningStatus(action: setWarningStatusType) {
+  const { status } = action.payload
+  yield put(setStatus.action(status));
+  yield put(setStatus.action(basicStatus.NONE));
+};
+function* invokeSetDangerStatus(action: setDangerStatusType) {
+  const { status } = action.payload
+  yield put(setStatus.action(status));
+  yield put(setStatus.action(basicStatus.NONE));
 };
 
 // Bundle api functions to watcher and saga
 function* watchAsyncTriggers() {
-  yield takeLatest(SET_NONE, invokeSetNone);
-  yield takeLatest(SET_SUCCESS, invokeSetSuccess);
-  yield takeLatest(SET_DANGER, invokeSetDanger);
+  yield takeLatest(setBasicStatus.name, invokeSetBasicStatus);
+  yield takeLatest(setSuccessStatus.name, invokeSetSuccessStatus);
+  yield takeLatest(setWarningStatus.name, invokeSetWarningStatus);
+  yield takeLatest(setDangerStatus.name, invokeSetDangerStatus);
 }
 
 export default function* saga() {

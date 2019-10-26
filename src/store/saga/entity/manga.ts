@@ -27,8 +27,16 @@ import {
 } from '@action/entity/manga';
 
 import {
-  setSuccess
+  setSuccessStatus,
+  setWarningStatus,
+  setDangerStatus
 } from '@action/util/appStatus';
+
+import {
+  successStatus,
+  warningStatus,
+  dangerStatus
+} from '@util/appStatus';
 
 // APIs
 function* invokeFetchAllMangas(action: fetchAllMangasType){
@@ -41,7 +49,7 @@ function* invokeFetchMangasByWord(action: fetchMangasByWordType) {
   const mangas = yield call(() => {
     return appDB[TableName.Mangas]
       .where("name")
-      .anyOfIgnoreCase(word)
+      .startsWithIgnoreCase(word)
       .toArray();
   });
   yield put(setMangas.action(mangas));
@@ -78,19 +86,19 @@ function* invokeCreateManga(action: createMangaType) {
   const { manga } = action.payload;
   yield call(() => appDB[TableName.Mangas].add(manga));
   yield put(fetchMangas.action());
-  yield put(setSuccess());
+  yield put(setSuccessStatus.action(successStatus.CREATED_MANGA));
 }
 function* invokeUpdateManga(action: updateMangaType) {
   const { manga } = action.payload;
   yield call(() => appDB[TableName.Mangas].update(manga.id!!, manga));
   yield put(fetchMangas.action());
-  yield put(setSuccess());
+  yield put(setWarningStatus.action(successStatus.UPDATED_MANGA));
 }
 function* invokeDeleteManga(action: deleteMangaType) {
   const { mangaId } = action.payload;
   yield call(() => appDB[TableName.Mangas].delete(mangaId));
   yield put(fetchMangas.action());
-  yield put(setSuccess());
+  yield put(setDangerStatus.action(warningStatus.DELETED_MANGA));
 }
 function* invokeChangeSelectedMangaId(action) {
   const mangaId = action.mangaId;

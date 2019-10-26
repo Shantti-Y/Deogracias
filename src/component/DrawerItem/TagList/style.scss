@@ -9,13 +9,31 @@
   font-size: 13px;
   font-weight: 600;
   align-items: center;
+  position: relative;
 
   a {
     color: #333333;
+    width: 100%;
 
     i {
       font-size: 10px;
       margin-right: 23px;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .buttons {
+    position: absolute;
+    right: 15px;
+
+    .button {
+      width: 26px;
+      height: 26px;
+      border-radius: 5px;
+      margin-left: 6px;
     }
   }
 }

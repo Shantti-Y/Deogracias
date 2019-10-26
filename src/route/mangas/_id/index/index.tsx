@@ -14,11 +14,11 @@ import PageNavigator from '@component/PageNavigator';
 
 import { changeSelectedMangaId } from '@action/entity/manga';
 
-import appStatus from '@util/appStatus';
+import { statusType } from '@util/appStatus';
 
 interface ComponentStateProps {
   selectedMangaId: number;
-  appStatus: appStatus
+  appStatus: statusType
 }
 interface ComponentDispatchProps {
   onPageLoad: (mangaId: number) => void;

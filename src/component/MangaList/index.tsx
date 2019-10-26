@@ -10,13 +10,13 @@ import ConfirmationModal from '@component/ConfirmationModal';
 import { deleteManga } from '@action/entity/manga';
 
 import './style.scss';
-interface ComponentStateProps {}
+interface ComponentStateProps {
+  mangas: MangaEntity[]
+}
 interface ComponentDispatchProps {
   onDelete: (mangaId: number) => void;
 }
-interface ComponentOwnProps {
-  mangas: MangaEntity[]
-}
+interface ComponentOwnProps {}
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const MangaList: FC<ComponentProps> = props => {
   // consider the state modalOpened to move redux state
@@ -43,11 +43,6 @@ const MangaList: FC<ComponentProps> = props => {
   const MangaItem = (manga: MangaEntity) => {
     const imageSrc = manga.pages[0].url;
 
-    const linkToEditPage = () => {
-      history.push(`/mangas/${manga.id}/edit`)
-    }
-  
-
     return (
       <div className="manga-item">
         <div className="manga-item-thumbnail">
@@ -56,7 +51,7 @@ const MangaList: FC<ComponentProps> = props => {
               icon="pi pi-pencil"
               className="manga-item-command"
               tooltip={`Edit ${manga.name}`}
-              onClick={() => linkToEditPage()}
+              onClick={() => history.push(`/mangas/${manga.id}/edit`)}
             />
             <Button
               icon="pi pi-trash"
@@ -89,7 +84,10 @@ const MangaList: FC<ComponentProps> = props => {
     </div>
   );
 };
+const mapStateToProps = state => ({
+  mangas: state.entity.manga.mangas
+});
 const mapDispatchToProps = dispatch =>  ({
   onDelete: (mangaId: number) => dispatch(deleteManga.action(mangaId))
 })
-export default connect<ComponentStateProps, ComponentDispatchProps>(null, mapDispatchToProps)(MangaList);
+export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(MangaList);

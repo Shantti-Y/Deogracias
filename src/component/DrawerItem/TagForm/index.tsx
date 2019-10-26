@@ -6,17 +6,17 @@ import './style.scss';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 
-import appStatus from '@util/appStatus';
+import { statusType } from '@util/appStatus';
 
 interface ComponentStateProps {
-  appStatus: appStatus
+  appStatus: statusType
 }
 interface ComponentDispatchProps {}
 interface ComponentOwnProps {
   opened: boolean;
   onClose: () => void;
   onSubmit: (tag: TagEntity) => void;
-  initialTag?: TagEntity
+  initialTag: TagEntity
 }
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const TagForm: FC<ComponentProps> = props => {

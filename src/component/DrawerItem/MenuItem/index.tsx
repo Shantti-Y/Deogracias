@@ -17,7 +17,6 @@ const MenuItem: FC<ComponentProps> = props => {
     if(props.onClick){
       props.onClick();
     }
-    
   }
 
   return (

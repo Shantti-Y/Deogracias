@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import DrawerItem from './Drawer';
@@ -8,12 +8,10 @@ export const DashboardHeaderItem = HeaderItem;
 
 import MangaList from '@component/MangaList';
 
-import { fetchTags } from '@action/entity/tag';
-import { fetchMangas } from '@action/entity/manga';
+import { fetchAllTags } from '@action/entity/tag';
+import { fetchAllMangas } from '@action/entity/manga';
 
-interface ComponentStateProps {
-  mangas: MangaEntity[];
-}
+interface ComponentStateProps {}
 interface ComponentDispatchProps {
   onPageLoad: () => void;
 }
@@ -26,19 +24,15 @@ const Dashboard: FC<ComponentProps> = props => {
   }, []);
 
   return (
-    <MangaList mangas={props.mangas} />
+    <MangaList />
   );
 };
 
-const mapStateToProps = state => ({
-  mangas: state.entity.manga.mangas
-});
-
 const mapDispatchToProps = dispatch => ({
   onPageLoad: () => {
-    dispatch(fetchTags.action());
-    dispatch(fetchMangas.action());
+    dispatch(fetchAllTags.action());
+    dispatch(fetchAllMangas.action());
   }
 });
 
-export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect<ComponentStateProps, ComponentDispatchProps>(null, mapDispatchToProps)(Dashboard);

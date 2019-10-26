@@ -8,10 +8,10 @@ import TagForm from '@component/DrawerItem/TagForm';
 
 import { createTag } from '@action/entity/tag';
 
-import appStatus from '@util/appStatus';
+import { statusType } from '@util/appStatus';
 
 interface ComponentStateProps {
-  appStatus: appStatus
+  appStatus: statusType
 }
 interface ComponentDispatchProps {
   onSubmit: (tag: TagEntity) => void;
@@ -20,17 +20,6 @@ interface ComponentOwnProps {}
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const NewTagItem: FC<ComponentProps> = props => {
   const [formOpened, setFormOpened] = useState(false);
-  const [name, setName] = useState('');
-
-  const handleChange = (event: React.FormEvent) => {
-    const target = event.target as HTMLInputElement;
-    setName(target.value);
-  }
-
-  const handleSubmit = () => {
-    const tag = { name: name }
-    props.onSubmit(tag);
-  }
 
   if (formOpened) {
     return (
@@ -38,6 +27,7 @@ const NewTagItem: FC<ComponentProps> = props => {
         opened={formOpened}
         onClose={() => setFormOpened(false)}
         onSubmit={(tag: TagEntity) => props.onSubmit(tag)}
+        initialTag={{ name: '' }}
       />
     )
   } else {

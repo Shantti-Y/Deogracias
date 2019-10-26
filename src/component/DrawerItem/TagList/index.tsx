@@ -13,11 +13,11 @@ import { Button } from 'primereact/button';
 
 import { updateTag, deleteTag } from '@action/entity/tag';
 
-import appStatus from '@util/appStatus';
+import { statusType } from '@util/appStatus';
 
 interface ComponentStateProps {
   tags: TagEntity[],
-  appStatus: appStatus
+  appStatus: statusType
 }
 interface ComponentDispatchProps {
   onSubmit: (tag: TagEntity) => void;
@@ -49,6 +49,16 @@ const TagList: FC<ComponentProps> = props => {
     setModalOpened(false);
   }
 
+  const TagItem = (tag: TagEntity, idx: number) => (
+    <div className="tag-link" key={idx}>
+      <Link to={`/tags/${tag.id}`}><i className="pi pi-circle-on" />{tag.name}</Link>
+      <div className="buttons">
+        <Button icon="pi pi-pencil" className="button p-button-info" onClick={() => setTargetTagId(tag.id)} />
+        <Button icon="pi pi-times" className="button p-button-danger" onClick={() => handleConfirmationModalOpen(tag.id!!)} />
+      </div>
+    </div>
+  )
+
   return (
     <div className="tag-list">
       <MenuItem
@@ -68,13 +78,7 @@ const TagList: FC<ComponentProps> = props => {
               initialTag={tag}
             />);
           } else {
-          return (
-            <div className="tag-link" key={idx}>
-              <Link to={`/tags/${tag.id}`}><i className="pi pi-circle-on" />{tag.name}</Link>
-              <Button icon="pi pi-pencil" className="button p-button-info" onClick={() => setTargetTagId(tag.id)} />
-              <Button icon="pi pi-times" className="button p-button-danger" onClick={() => handleConfirmationModalOpen(tag.id!!)} />
-            </div>
-          );
+            return TagItem(tag, idx);
         }
       })}
       </ScrollPanel>

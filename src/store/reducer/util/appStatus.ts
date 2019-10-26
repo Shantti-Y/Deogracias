@@ -1,23 +1,25 @@
 import { handleActions } from 'redux-actions';
 
-import * as actions from '@action/util/appStatus';
+import {
+  setStatus
+} from '@action/util/appStatus';
 
-import AppStatus from '@util/appStatus';
+import { statusType, basicStatus } from '@util/appStatus';
 
 interface AppStatusState {
-  status: AppStatus
+  status: statusType
 }
 const initialState: AppStatusState = {
-  status: AppStatus.NONE
+  status: basicStatus.NONE
 };
 
 const functions = {
-  setStatus: (state: AppStatusState, payload: { status: AppStatus }): AppStatusState => ({
+  setStatus: (state: AppStatusState, payload: { status: statusType }): AppStatusState => ({
     ...state,
     status: payload.status
   })
 };
 
 export default handleActions({
-  [actions.SET_STATUS]: (state: AppStatusState, action) => functions.setStatus(state, action.payload)
+  [setStatus.name]: (state: AppStatusState, action) => functions.setStatus(state, action.payload)
 }, initialState);

@@ -24,7 +24,6 @@ const TagsId: FC<ComponentProps> = props => {
     id: undefined,
     name: ''
   } as TagEntity);
-  const [mangas, setMangas] = useState([] as MangaEntity[]);
 
   const { id: paramId } = useParams();
 
@@ -37,16 +36,11 @@ const TagsId: FC<ComponentProps> = props => {
           setTag(result);
         }
       });
-      appDB[TableName.Mangas].where({ tagIds: initId }).toArray((result => {
-        if (result) {
-          setMangas(result);
-        }
-      }));
     }
   }, [paramId]);
 
   return (
-    <MangaList mangas={mangas} />
+    <MangaList />
   );
 };
 
