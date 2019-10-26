@@ -90,6 +90,6 @@ const MangaList: FC<ComponentProps> = props => {
   );
 };
 const mapDispatchToProps = dispatch =>  ({
-  onDelete: (mangaId: number) => dispatch(deleteManga({ mangaId }))
+  onDelete: (mangaId: number) => dispatch(deleteManga.action(mangaId))
 })
 export default connect<ComponentStateProps, ComponentDispatchProps>(null, mapDispatchToProps)(MangaList);

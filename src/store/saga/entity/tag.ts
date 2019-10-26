@@ -3,13 +3,17 @@ import { put, all, call, takeLatest } from 'redux-saga/effects';
 import { TableName, appDB } from '@util/database';
 
 import {
-  FETCH_TAGS,
-  CREATE_TAG,
-  UPDATE_TAG,
-  DELETE_TAG,
   fetchTags,
+  fetchTagsType,
+  createTag,
+  createTagType,
+  updateTag,
+  updateTagType,
+  deleteTag,
+  deleteTagType,
   setTags,
-  CHANGE_SELECTED_TAG_ID,
+  changeSelectedTagId,
+  changeSelectedTagIdType,
   setSelectedTagId
 } from '@action/entity/tag';
 
@@ -18,40 +22,40 @@ import {
 } from '@action/util/appStatus';
 
 // APIs
-function* invokeFetchTags(action) {
+function* invokeFetchTags(action: fetchTagsType) {
   const tags = yield call(() => appDB[TableName.Tags].toArray());
-  yield put(setTags({ tags }));
+  yield put(setTags.action(tags));
 }
-function* invokeCreateTag(action) {
+function* invokeCreateTag(action: createTagType) {
   const { tag } = action.payload;
   yield call(() => appDB[TableName.Tags].add(tag));
-  yield put(fetchTags());
+  yield put(fetchTags.action());
   yield put(setSuccess());
 }
-function* invokeUpdateTag(action) {
+function* invokeUpdateTag(action: updateTagType) {
   const { tag } = action.payload;
-  yield call(() => appDB[TableName.Tags].update(tag.id, tag));
-  yield put(fetchTags());
+  yield call(() => appDB[TableName.Tags].update(tag.id!!, tag));
+  yield put(fetchTags.action());
   yield put(setSuccess());
 }
-function* invokeDeleteTag(action) {
+function* invokeDeleteTag(action: deleteTagType) {
   const { tagId } = action.payload;
   yield call(() => appDB[TableName.Tags].delete(tagId));
-  yield put(fetchTags());
+  yield put(fetchTags.action());
   yield put(setSuccess());
 }
-function* invokeChangeSelectedTagId(action) {
+function* invokeChangeSelectedTagId(action: changeSelectedTagIdType) {
   const { tagId } = action.payload;
-  yield put(setSelectedTagId({ tagId }));
+  yield put(setSelectedTagId.action(tagId));
 }
 
 // Bundle api functions to watcher and saga
 function* watchAsyncTriggers() {
-  yield takeLatest(FETCH_TAGS, invokeFetchTags);
-  yield takeLatest(CREATE_TAG, invokeCreateTag);
-  yield takeLatest(UPDATE_TAG, invokeUpdateTag);
-  yield takeLatest(DELETE_TAG, invokeDeleteTag);
-  yield takeLatest(CHANGE_SELECTED_TAG_ID, invokeChangeSelectedTagId);
+  yield takeLatest(fetchTags.name, invokeFetchTags);
+  yield takeLatest(createTag.name, invokeCreateTag);
+  yield takeLatest(updateTag.name, invokeUpdateTag);
+  yield takeLatest(deleteTag.name, invokeDeleteTag);
+  yield takeLatest(changeSelectedTagId.name, invokeChangeSelectedTagId);
 }
 
 export default function* saga() {

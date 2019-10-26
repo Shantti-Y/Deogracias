@@ -48,7 +48,7 @@ const mapStateToProps = state => ({
   appStatus: state.util.appStatus.status
 });
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (tag: TagEntity) => dispatch(createTag({ tag }))
+  onSubmit: (tag: TagEntity) => dispatch(createTag.action(tag))
 })
 
 export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(NewTagItem);

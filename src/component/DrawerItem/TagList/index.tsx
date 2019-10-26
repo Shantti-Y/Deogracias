@@ -93,8 +93,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (tag: TagEntity) => dispatch(updateTag({ tag })),
-  onDelete: (tagId: number) => dispatch(deleteTag({ tagId }))
+  onSubmit: (tag: TagEntity) => dispatch(updateTag.action(tag)),
+  onDelete: (tagId: number) => dispatch(deleteTag.action(tagId))
 });
 
 export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(TagList);

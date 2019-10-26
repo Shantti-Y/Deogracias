@@ -76,7 +76,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onPageLoad: (mangaId: number) => dispatch(changeSelectedMangaId({ mangaId }))
+  onPageLoad: (mangaId: number) => dispatch(changeSelectedMangaId.action(mangaId))
 });
 
 export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(MangasId);

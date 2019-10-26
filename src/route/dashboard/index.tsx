@@ -36,8 +36,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onPageLoad: () => {
-    dispatch(fetchTags());
-    dispatch(fetchMangas());
+    dispatch(fetchTags.action());
+    dispatch(fetchMangas.action());
   }
 });
 

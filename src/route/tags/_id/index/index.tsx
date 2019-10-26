@@ -54,8 +54,8 @@ const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
   onPageLoad: (tagId: number) => {
-    dispatch(changeSelectedTagId(tagId))
-    dispatch(fetchTags());
+    dispatch(changeSelectedTagId.action(tagId))
+    dispatch(fetchTags.action());
   }
 });
 

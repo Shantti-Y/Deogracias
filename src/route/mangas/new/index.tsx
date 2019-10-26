@@ -50,8 +50,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onPageLoad: () => dispatch(fetchTags()),
-  onSubmit: (manga: MangaEntity) => dispatch(createManga({ manga }))
+  onPageLoad: () => dispatch(fetchTags.action()),
+  onSubmit: (manga: MangaEntity) => dispatch(createManga.action(manga))
 });
 
 export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(MangasNew);
