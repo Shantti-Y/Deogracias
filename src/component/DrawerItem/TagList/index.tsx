@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -13,7 +13,7 @@ import { Button } from 'primereact/button';
 
 import { updateTag, deleteTag } from '@action/entity/tag';
 
-import { statusType } from '@util/appStatus';
+import { statusType, successStatus } from '@util/appStatus';
 
 interface ComponentStateProps {
   tags: TagEntity[],
@@ -28,6 +28,12 @@ type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOw
 const TagList: FC<ComponentProps> = props => {
   const [targetTagId, setTargetTagId] = useState();
   const [modalOpened, setModalOpened] = useState(false);
+
+  useEffect(() => {
+    if (props.appStatus === successStatus.UPDATED_TAG) {
+      setTargetTagId(null);
+    }
+  }, [props.appStatus]);
 
   const targetTagName = (): string => {
     const tag = props.tags.find(tag => tag.id === targetTagId);

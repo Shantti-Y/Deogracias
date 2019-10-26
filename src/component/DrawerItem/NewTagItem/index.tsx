@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import './style.scss';
@@ -8,7 +8,7 @@ import TagForm from '@component/DrawerItem/TagForm';
 
 import { createTag } from '@action/entity/tag';
 
-import { statusType } from '@util/appStatus';
+import { statusType, successStatus } from '@util/appStatus';
 
 interface ComponentStateProps {
   appStatus: statusType
@@ -20,6 +20,12 @@ interface ComponentOwnProps {}
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const NewTagItem: FC<ComponentProps> = props => {
   const [formOpened, setFormOpened] = useState(false);
+
+  useEffect(() => {
+    if (props.appStatus === successStatus.CREATED_TAG) {
+      setFormOpened(false);
+    }
+  }, [props.appStatus]);
 
   if (formOpened) {
     return (
