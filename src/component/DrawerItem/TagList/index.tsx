@@ -23,7 +23,7 @@ interface ComponentDispatchProps {
   onSubmit: (tag: TagEntity) => void;
   onDelete: (tagId: number) => void;
 }
-interface ComponentOwnProps { }
+interface ComponentOwnProps {}
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const TagList: FC<ComponentProps> = props => {
   const [targetTagId, setTargetTagId] = useState();

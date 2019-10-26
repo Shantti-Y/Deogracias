@@ -1,8 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { FC, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import { TableName, appDB } from '@util/database';
 
 import DrawerItem from './Drawer';
 export const DashboardDrawerItem = DrawerItem;
@@ -11,45 +9,54 @@ export const DashboardHeaderItem = HeaderItem;
 
 import MangaList from '@component/MangaList';
 
-import { fetchTags, changeSelectedTagId } from '@action/entity/tag';
+import { fetchAllTags, fetchTagById } from '@action/entity/tag';
+import { fetchMangasByTagId } from '@action/entity/manga';
 
-interface ComponentStateProps { }
+import { statusType, warningStatus } from '@util/appStatus';
+
+interface ComponentStateProps {
+  tag: TagEntity;
+  tags: TagEntity[];
+  appStatus: statusType;
+}
 interface ComponentDispatchProps {
   onPageLoad: (tagId: number) => void;
 }
-interface ComponentOwnProps { }
+interface ComponentOwnProps {}
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const TagsId: FC<ComponentProps> = props => {
-  const [tag, setTag] = useState({
-    id: undefined,
-    name: ''
-  } as TagEntity);
-
   const { id: paramId } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     if (paramId) {
       const initId = parseInt(paramId);
       props.onPageLoad(initId);
-      appDB[TableName.Tags].get({ id: initId }).then(result => {
-        if (result) {
-          setTag(result);
-        }
-      });
     }
   }, [paramId]);
+
+  useEffect(() => {
+    if (props.appStatus === warningStatus.DELETED_TAG) {
+      history.push('/')
+    }
+  }, [props.appStatus]);
 
   return (
     <MangaList />
   );
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  tag: state.entity.tag.selectedTag,
+  tags: state.entity.tag.tags,
+  appStatus: state.util.appStatus.status
+});
 
 const mapDispatchToProps = dispatch => ({
   onPageLoad: (tagId: number) => {
-    dispatch(changeSelectedTagId.action(tagId))
-    dispatch(fetchTags.action());
+    dispatch(fetchTagById.action(tagId))
+    dispatch(fetchAllTags.action());
+    dispatch(fetchMangasByTagId.action(tagId));
   }
 });
 

@@ -5,6 +5,10 @@ import { TableName, appDB } from '@util/database';
 import {
   fetchAllTags,
   fetchAllTagsType,
+  fetchTagById,
+  fetchTagByIdType,
+  fetchTagsByIds,
+  fetchTagsByIdsType,
   createTag,
   createTagType,
   updateTag,
@@ -12,9 +16,7 @@ import {
   deleteTag,
   deleteTagType,
   setTags,
-  changeSelectedTagId,
-  changeSelectedTagIdType,
-  setSelectedTagId
+  setSelectedTag
 } from '@action/entity/tag';
 
 import {
@@ -32,6 +34,21 @@ import {
 // APIs
 function* invokeFetchAllTags(action: fetchAllTagsType) {
   const tags = yield call(() => appDB[TableName.Tags].toArray());
+  yield put(setTags.action(tags));
+}
+function* invokeFetchTagById(action: fetchTagByIdType) {
+  const { tagId } = action.payload;
+  const tag = yield call(() => appDB[TableName.Tags].get({ id: tagId }));
+  yield put(setSelectedTag.action(tag));
+}
+function* invokeFetchTagsByIds(action: fetchTagsByIdsType) {
+  const { tagIds } = action.payload;
+  const tags = yield call(() => {
+    appDB[TableName.Tags]
+      .where('id')
+      .anyOf(tagIds)
+      .toArray()
+  });
   yield put(setTags.action(tags));
 }
 function* invokeCreateTag(action: createTagType) {
@@ -52,18 +69,15 @@ function* invokeDeleteTag(action: deleteTagType) {
   yield put(fetchAllTags.action());
   yield put(setWarningStatus.action(warningStatus.DELETED_TAG));
 }
-function* invokeChangeSelectedTagId(action: changeSelectedTagIdType) {
-  const { tagId } = action.payload;
-  yield put(setSelectedTagId.action(tagId));
-}
 
 // Bundle api functions to watcher and saga
 function* watchAsyncTriggers() {
   yield takeLatest(fetchAllTags.name, invokeFetchAllTags);
+  yield takeLatest(fetchTagById.name, invokeFetchTagById);
+  yield takeLatest(fetchTagsByIds.name, invokeFetchTagsByIds);
   yield takeLatest(createTag.name, invokeCreateTag);
   yield takeLatest(updateTag.name, invokeUpdateTag);
   yield takeLatest(deleteTag.name, invokeDeleteTag);
-  yield takeLatest(changeSelectedTagId.name, invokeChangeSelectedTagId);
 }
 
 export default function* saga() {

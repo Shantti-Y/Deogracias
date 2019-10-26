@@ -11,7 +11,7 @@ export const EditMangaHeaderItem = HeaderItem;
 
 import MangaForm from '@component/MangaForm';
 
-import { fetchTags } from '@action/entity/tag';
+import { fetchAllTags } from '@action/entity/tag';
 import { updateManga, changeSelectedMangaId } from '@action/entity/manga';
 
 import { statusType } from '@util/appStatus';
@@ -81,7 +81,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onPageLoad: (mangaId: number) => {
     dispatch(changeSelectedMangaId.action(mangaId));
-    dispatch(fetchTags.action());
+    dispatch(fetchAllTags.action());
   },
   onSubmit: (manga: MangaEntity) => dispatch(updateManga.action(manga))
 });

@@ -3,17 +3,12 @@ import { put, all, takeLatest, call} from 'redux-saga/effects';
 import { TableName, appDB } from '@util/database';
 
 import {
-  fetchMangas,
-  fetchMangasType,
   createManga,
   createMangaType,
   updateManga,
   updateMangaType,
   deleteManga,
   deleteMangaType,
-  changeSelectedMangaId,
-  changeSelectedMangaIdType,
-
   fetchAllMangas,
   fetchAllMangasType,
   fetchMangasByWord,
@@ -23,7 +18,7 @@ import {
   fetchMangasByTagId,
   fetchMangasByTagIdType,
   setMangas,
-  setSelectedMangaId
+  setSelectedManga
 } from '@action/entity/manga';
 
 import {
@@ -57,52 +52,40 @@ function* invokeFetchMangasByWord(action: fetchMangasByWordType) {
 
 function* invokeFetchMangaById(action: fetchMangaByIdType) {
   const { mangaId } = action.payload;
-  const mangas = yield call(() => {
-    appDB[TableName.Mangas]
-      .where("id")
-      .equals(mangaId)
-      .toArray();
+  const manga = yield call(() => {
+    return appDB[TableName.Mangas].get({ id: mangaId })
   });
-  yield put(setMangas.action(mangas));
+  yield put(setSelectedManga.action(manga));
 }
 
 function* invokeFetchMangasByTagId(action: fetchMangasByTagIdType) {
   const { tagId } = action.payload;
   const mangas = yield call(() => {
-    appDB[TableName.Mangas]
-      .where("tagIds")
-      .equals(tagId)
+    return appDB[TableName.Mangas]
+      .where({ tagIds: tagId })
       .toArray();
   });
   yield put(setMangas.action(mangas));
 }
 
-function* invokeFetchMangas(action) {
-  const mangas = yield call(() => appDB[TableName.Mangas].toArray());
-  yield put(setMangas.action(mangas));
-}
 // TODO: Add catch handler if some kinds of db transaction error happens.
 function* invokeCreateManga(action: createMangaType) {
   const { manga } = action.payload;
   yield call(() => appDB[TableName.Mangas].add(manga));
-  yield put(fetchMangas.action());
+  yield put(fetchAllMangas.action());
   yield put(setSuccessStatus.action(successStatus.CREATED_MANGA));
 }
 function* invokeUpdateManga(action: updateMangaType) {
   const { manga } = action.payload;
   yield call(() => appDB[TableName.Mangas].update(manga.id!!, manga));
-  yield put(fetchMangas.action());
+  yield put(fetchAllMangas.action());
   yield put(setWarningStatus.action(successStatus.UPDATED_MANGA));
 }
 function* invokeDeleteManga(action: deleteMangaType) {
   const { mangaId } = action.payload;
   yield call(() => appDB[TableName.Mangas].delete(mangaId));
-  yield put(fetchMangas.action());
+  yield put(fetchAllMangas.action());
   yield put(setDangerStatus.action(warningStatus.DELETED_MANGA));
-}
-function* invokeChangeSelectedMangaId(action) {
-  const mangaId = action.mangaId;
-  yield put(setSelectedMangaId.action(mangaId));
 }
 
 // Bundle api functions to watcher and saga
@@ -111,11 +94,9 @@ function* watchAsyncTriggers() {
   yield takeLatest(fetchMangasByWord.name, invokeFetchMangasByWord);
   yield takeLatest(fetchMangaById.name, invokeFetchMangaById);
   yield takeLatest(fetchMangasByTagId.name, invokeFetchMangasByTagId);
-  yield takeLatest(fetchMangas.name, invokeFetchMangas);
   yield takeLatest(createManga.name, invokeCreateManga);
   yield takeLatest(updateManga.name, invokeUpdateManga);
   yield takeLatest(deleteManga.name, invokeDeleteManga);
-  yield takeLatest(changeSelectedMangaId.name, invokeChangeSelectedMangaId);
 }
 
 export default function* saga() {

@@ -2,16 +2,16 @@ import { handleActions } from 'redux-actions';
 
 import {
   setMangas,
-  setSelectedMangaId
+  setSelectedManga
 } from '@action/entity/manga';
 
 interface MangaState {
   mangas: MangaEntity[],
-  selectedMangaId?: number
+  selectedManga?: MangaEntity
 }
 const initialState: MangaState = {
   mangas: [],
-  selectedMangaId: undefined
+  selectedManga: undefined
 };
 
 const functions = {
@@ -19,14 +19,14 @@ const functions = {
     ...state,
     mangas: payload.mangas
   }),
-  setSelectedMangaId: (state: MangaState, payload: { mangaId: number }): MangaState => ({
+  setSelectedManga: (state: MangaState, payload: { manga: MangaEntity }): MangaState => ({
     ...state,
-    selectedMangaId: payload.mangaId
+    selectedManga: payload.manga
   }),
 
 };
 
 export default handleActions({
   [setMangas.name]: (state: MangaState, action) => functions.setMangas(state, action.payload),
-  [setSelectedMangaId.name]: (state: MangaState, action) => functions.setSelectedMangaId(state, action.payload)
+  [setSelectedManga.name]: (state: MangaState, action) => functions.setSelectedManga(state, action.payload)
 }, initialState);

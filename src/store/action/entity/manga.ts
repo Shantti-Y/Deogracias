@@ -70,9 +70,9 @@ export const setMangas: reduxAction<{ mangas: MangaEntity[] }> = {
 export type setMangasType = ReturnType<typeof setMangas.action>;
 
 // for calling reducers
-const SET_SELECTED_MANGA_ID = 'entity/manga/SET_SELECTED_MANGA_ID';
-export const setSelectedMangaId: reduxAction<{ mangaId: number }> = {
-  name: SET_SELECTED_MANGA_ID,
-  action: (mangaId: number) => ({ type: SET_SELECTED_MANGA_ID, payload: { mangaId } })
+const SET_SELECTED_MANGA = 'entity/manga/SET_SELECTED_MANGA';
+export const setSelectedManga: reduxAction<{ manga: MangaEntity }> = {
+  name: SET_SELECTED_MANGA,
+  action: (manga: MangaEntity) => ({ type: SET_SELECTED_MANGA, payload: { manga } })
 };
-export type setSelectedMangaIdType = ReturnType<typeof setSelectedMangaId.action>;
+export type setSelectedMangaType = ReturnType<typeof setSelectedManga.action>;

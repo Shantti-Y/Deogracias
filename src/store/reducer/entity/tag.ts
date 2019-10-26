@@ -2,16 +2,16 @@ import { handleActions } from 'redux-actions';
 
 import {
   setTags,
-  setSelectedTagId
+  setSelectedTag
 } from '@action/entity/tag';
 
 interface TagState {
   tags: TagEntity[],
-  selectedTagId?: number
+  selectedTag?: TagEntity
 }
 const initialState: TagState = {
   tags: [],
-  selectedTagId: undefined
+  selectedTag: undefined
 };
 
 const functions = {
@@ -19,14 +19,14 @@ const functions = {
     ...state,
     tags: payload.tags
   }),
-  setSelectedTagId: (state: TagState, payload: { tagId: number }): TagState => ({
+  setSelectedTag: (state: TagState, payload: { tag: TagEntity }): TagState => ({
     ...state,
-    selectedTagId: payload.tagId
+    selectedTag: payload.tag
   }),
 
 };
 
 export default handleActions({
   [setTags.name]: (state: TagState, action) => functions.setTags(state, action.payload),
-  [setSelectedTagId.name]: (state: TagState, action) => functions.setSelectedTagId(state, action.payload)
+  [setSelectedTag.name]: (state: TagState, action) => functions.setSelectedTag(state, action.payload)
 }, initialState);

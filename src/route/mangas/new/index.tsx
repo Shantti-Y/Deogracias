@@ -9,7 +9,7 @@ export const NewMangaHeaderItem = HeaderItem;
 
 import MangaForm from '@component/MangaForm';
 
-import { fetchTags } from '@action/entity/tag';
+import { fetchAllTags } from '@action/entity/tag';
 import { createManga } from '@action/entity/manga';
 
 import { statusType } from '@util/appStatus';
@@ -50,7 +50,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onPageLoad: () => dispatch(fetchTags.action()),
+  onPageLoad: () => dispatch(fetchAllTags.action()),
   onSubmit: (manga: MangaEntity) => dispatch(createManga.action(manga))
 });
 

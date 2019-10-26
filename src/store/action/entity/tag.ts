@@ -19,13 +19,6 @@ export const fetchTagsByIds: reduxAction<{ tagIds: number[] }> = {
 };
 export type fetchTagsByIdsType = ReturnType<typeof fetchTagsByIds.action>;
 
-const FETCH_TAGS = 'entity/tag/FETCH_TAGS'
-export const fetchTags: reduxAction<{}> = {
-  name: FETCH_TAGS,
-  action: () => ({ type: FETCH_TAG_BY_ID, payload: {} })
-};
-export type fetchTagsType = ReturnType<typeof fetchTags.action>;
-
 const CREATE_TAG = 'entity/tag/CREATE_TAG'
 export const createTag: reduxAction<{ tag: TagEntity}> = {
   name: CREATE_TAG,
@@ -47,13 +40,6 @@ export const deleteTag: reduxAction<{ tagId: number }> = {
 };
 export type deleteTagType = ReturnType<typeof deleteTag.action>;
 
-const CHANGE_SELECTED_TAG_ID = 'entity/tag/CHANGE_SELECTED_TAG_ID'
-export const changeSelectedTagId: reduxAction<{ tagId: number }> = {
-  name: DELETE_TAG,
-  action: (tagId: number) => ({ type: CHANGE_SELECTED_TAG_ID, payload: { tagId } })
-};
-export type changeSelectedTagIdType = ReturnType<typeof changeSelectedTagId.action>;
-
 // for calling reducers
 const SET_TAGS = 'entity/tag/SET_TAGS'
 export const setTags: reduxAction<{ tags: TagEntity[] }> = {
@@ -63,9 +49,9 @@ export const setTags: reduxAction<{ tags: TagEntity[] }> = {
 export type setTagsType = ReturnType<typeof fetchTagsByIds.action>;
 
 // for calling reducers
-const SET_SELECTED_TAG_ID = 'entity/tag/SET_SELECTED_TAG_ID'
-export const setSelectedTagId: reduxAction<{ tagId: number }> = {
-  name: SET_SELECTED_TAG_ID,
-  action: (tagId: number) => ({ type: SET_SELECTED_TAG_ID, payload: { tagId } })
+const SET_SELECTED_TAG = 'entity/tag/SET_SELECTED_TAG'
+export const setSelectedTag: reduxAction<{ tag: TagEntity }> = {
+  name: SET_SELECTED_TAG,
+  action: (tag: TagEntity) => ({ type: SET_SELECTED_TAG, payload: { tag } })
 };
-export type setSelectedTagIdType = ReturnType<typeof setSelectedTagId.action>;
+export type setSelectedTagType = ReturnType<typeof setSelectedTag.action>;
