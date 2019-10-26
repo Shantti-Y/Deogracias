@@ -14,3 +14,8 @@ interface TagEntity {
   id?: number;
   name: string
 }
+
+interface reduxAction<T> {
+  name: string;
+  action: (...args: any) => { type: string, payload: T };
+}
