@@ -9,11 +9,14 @@ export const DashboardHeaderItem = HeaderItem;
 import MangaList from '@component/MangaList';
 
 import { fetchAllTags } from '@action/entity/tag';
-import { fetchAllMangas } from '@action/entity/manga';
+import { fetchAllMangas, fetchMangasByWord } from '@action/entity/manga';
 
-interface ComponentStateProps {}
+interface ComponentStateProps {
+  filterWord: string;
+}
 interface ComponentDispatchProps {
   onPageLoad: () => void;
+  onChangeFilter: (word: string) => void;
 }
 interface ComponentOwnProps { }
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
@@ -23,16 +26,25 @@ const Dashboard: FC<ComponentProps> = props => {
     props.onPageLoad();
   }, []);
 
+  useEffect(() => {
+    props.onChangeFilter(props.filterWord);
+  }, [props.filterWord]);
+
   return (
     <MangaList />
   );
 };
 
+const mapStateToProps = state => ({
+  filterWord: state.util.filter.word
+});
+
 const mapDispatchToProps = dispatch => ({
   onPageLoad: () => {
     dispatch(fetchAllTags.action());
     dispatch(fetchAllMangas.action());
-  }
+  },
+  onChangeFilter: (word: string) => dispatch(fetchMangasByWord.action(word))
 });
 
-export default connect<ComponentStateProps, ComponentDispatchProps>(null, mapDispatchToProps)(Dashboard);
+export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(Dashboard);

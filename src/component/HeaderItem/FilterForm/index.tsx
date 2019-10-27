@@ -5,29 +5,39 @@ import { InputText } from 'primereact/inputtext';
 
 import './style.scss';
 
-import { fetchMangasByWord } from '@action/entity/manga';
+import { changeWord } from '@action/util/filter';
 
-interface ComponentStateProps {}
+interface ComponentStateProps {
+  word: string;
+}
 interface ComponentDispatchProps {
   onChange: (word: string) => void;
 }
 interface ComponentOwnProps {}
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const FilterForm: FC<ComponentProps> = props => {
-  const [value, setValue] = useState('');
 
   const handleChange = (event: React.FormEvent) => {
     const target = event.target as HTMLInputElement;
-    setValue(target.value);
     props.onChange(target.value);
   }
 
   return (
-    <InputText value={value} onChange={event => handleChange(event)} />
+    <div className="p-inputgroup">
+      <span className="p-inputgroup-addon">
+        <i className="pi pi-search"></i>
+      </span>
+      <InputText value={props.word} onChange={event => handleChange(event)} placeholder="Search Titles" />
+    </div>
   )
 }
-const mapDispatchToProps = dispatch => ({
-  onChange: (word: string) => dispatch(fetchMangasByWord.action(word))
+
+const mapStateToProps = state => ({
+  word: state.util.filter.word
 });
 
-export default connect<ComponentStateProps, ComponentDispatchProps>(null, mapDispatchToProps)(FilterForm);
+const mapDispatchToProps = dispatch => ({
+  onChange: (word: string) => dispatch(changeWord.action(word))
+});
+
+export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(FilterForm);

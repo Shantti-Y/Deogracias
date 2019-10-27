@@ -1,5 +1,3 @@
-import { createAction } from 'redux-actions';
-
 import * as status from '@util/appStatus';
 
 const SET_BASIC_STATUS = 'util/appStatus/SET_BASIC_STATUS';

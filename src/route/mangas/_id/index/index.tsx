@@ -12,12 +12,12 @@ export const MangaViewerHeaderItem = HeaderItem;
 import ZoomNavigator from '@component/ZoomNavigator';
 import PageNavigator from '@component/PageNavigator';
 
-import { changeSelectedMangaId } from '@action/entity/manga';
+import { fetchMangaById } from '@action/entity/manga';
 
 import { statusType } from '@util/appStatus';
 
 interface ComponentStateProps {
-  selectedMangaId: number;
+  manga: MangaEntity;
   appStatus: statusType
 }
 interface ComponentDispatchProps {
@@ -26,12 +26,6 @@ interface ComponentDispatchProps {
 interface ComponentOwnProps { }
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const MangasId: FC<ComponentProps> = props => {
-  const [manga, setManga] = useState({
-    id: undefined,
-    name: '',
-    pages: [{ url: '' }],
-    tagIds: []
-  } as MangaEntity);
   const [currentPageNumber, setCurrentPageNumber] = useState(0);
   const [windowSizePercent, setWindowSizePercent] = useState(100);
 
@@ -41,11 +35,6 @@ const MangasId: FC<ComponentProps> = props => {
     if (paramId) {
       const initId = parseInt(paramId);
       props.onPageLoad(initId);
-      appDB[TableName.Mangas].get({ id: initId }).then(result => {
-        if (result) {
-          setManga(result);
-        }
-      });
     }
   }, [paramId]);
 
@@ -55,28 +44,26 @@ const MangasId: FC<ComponentProps> = props => {
 
   return (
     <div id="mangas-_id">
-
-      <img src={manga.pages[currentPageNumber].url} style={{ height: imageSize(), width: 'auto' }} />
+      <img src={props.manga.pages[currentPageNumber].url} style={{ height: imageSize(), width: 'auto' }} />
       <ZoomNavigator
         currentZoomPercent={windowSizePercent}
         onChange={percent => setWindowSizePercent(percent)}
       />
       <PageNavigator
         currentPageIdx={currentPageNumber}
-        maxPageIdx={manga.pages.length - 1}
+        maxPageIdx={props.manga.pages.length - 1}
         onChange={idx => setCurrentPageNumber(idx)}
       />
-
     </div>
   );
 };
 const mapStateToProps = state => ({
-  selectedMangaId: state.entity.manga.selectedMangaId,
+  manga: state.entity.manga.selectedManga,
   appStatus: state.util.appStatus.status
 });
 
 const mapDispatchToProps = dispatch => ({
-  onPageLoad: (mangaId: number) => dispatch(changeSelectedMangaId.action(mangaId))
+  onPageLoad: (mangaId: number) => dispatch(fetchMangaById.action(mangaId))
 });
 
 export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(MangasId);

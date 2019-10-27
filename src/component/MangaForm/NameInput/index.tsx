@@ -14,13 +14,12 @@ const NameInput: FC<NameInputProps> = props => {
   }
 
   return (
-    <div>
-      Manga Name
+    <div className="p-float-label"> 
       <InputText
         value={props.value}
-        placeholder="manga name"
         onChange={event => handleChange(event)}
       />
+<label>Manga Name</label>
     </div>
   );
 };

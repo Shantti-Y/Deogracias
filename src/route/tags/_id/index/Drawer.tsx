@@ -13,6 +13,7 @@ const Dashboard: FC<ComponentProps> = props => {
 
   return (
     <div className="drawer-dashboard drawer-menu-list">
+      <MenuItem icon="pi pi-home" text="Go to Home" onClick={() => history.push(`/`)} />
       <MenuItem icon="pi pi-image" text="New Manga" onClick={() => history.push(`/mangas/new`)} />
       <NewTagItem />
       <TagList />

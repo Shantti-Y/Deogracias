@@ -1,9 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+
+import './style.scss'
 
 interface LocalUrlInputProps {
   onFileSelected: (imageUrls: string[]) => void
 }
 const LocalUrlInput: FC<LocalUrlInputProps> = props => {
+  const [dragActive, setDragActive] = useState(false);
+
+  const dragActiveClassname = dragActive ? 'drag-active' : 'drag-inactive';
+
   const handleFileSelected = (event: React.ChangeEvent) => {
     const target = event.target as HTMLInputElement;
     const imageUrls = target.value.split(';');
@@ -11,14 +17,24 @@ const LocalUrlInput: FC<LocalUrlInputProps> = props => {
   };
   
   return (
-    <div>
-      <label>LocalImageSetting</label>
-      <input id="fileInput"
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={event => handleFileSelected(event)}
-      />
+    <div className={`manga-form local-url-input ${dragActiveClassname}`}>
+      <span>LocalImageSetting</span>
+      <div className="uploader-form">
+        <input id="local-image-urls"
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={event => handleFileSelected(event)}
+          onDragEnter={() => setDragActive(true)}
+          onDragLeave={() => setDragActive(false)}
+          onMouseEnter={() => setDragActive(true)}
+          onMouseLeave={() => setDragActive(false)}
+        />
+        <label htmlFor="local-image-urls">
+          <p>Upload File {dragActive}</p>
+          <i className="pi pi-plus-circle" />
+        </label>
+      </div>
     </div>
   );
 };

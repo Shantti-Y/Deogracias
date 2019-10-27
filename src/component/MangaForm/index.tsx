@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
+import './style.scss';
+
 import { Button } from 'primereact/button';
 
 import NameInput from '@component/MangaForm/NameInput';
@@ -64,33 +66,30 @@ const MangaForm: FC<ComponentProps> = props => {
   return (
     <div>
       <div className="p-grid">
-        <div className="p-sm-12 p-md-6"><NameInput value={name} onInput={value => setName(value)} /></div>
-        <div className="p-sm-0 p-md-6" />
-      </div>
-      <div className="p-grid">
         <div className="p-sm-12 p-md-6">
-          <div className="local-image">
-            <LocalUrlInput onFileSelected={additionalImageUrls => insertImageUrls(additionalImageUrls, ImageLocation.Local)} />
-          </div>
-          <div className="remote-image">
-            <RemoteUrlInput onSubmit={additionalImageUrls=> insertImageUrls(additionalImageUrls, ImageLocation.Remote)} />
-          </div>
+          <NameInput value={name} onInput={value => setName(value)} />
         </div>
         <div className="p-sm-12 p-md-6">
+          <TagsInput tagIds={tagIds} onChange={newTagIds => setTagIds(newTagIds)} />
+        </div>
+      </div>
+      <div className="p-grid">
+        <div className="p-sm-12 p-md-6 local-image">
+          <LocalUrlInput onFileSelected={additionalImageUrls => insertImageUrls(additionalImageUrls, ImageLocation.Local)} />
+        </div>
+        <div className="p-sm-12 p-md-6 remote-image">
+          <RemoteUrlInput onSubmit={additionalImageUrls=> insertImageUrls(additionalImageUrls, ImageLocation.Remote)} />
+        </div>
+      </div>
+      <div className="p-grid">
+        <div className="p-sm-12">
           <ImageUrlPreviewList imageUrls={imageUrls} onChange={newImageUrls => setImageUrls(newImageUrls)} />
         </div>
       </div>
       <div className="p-grid">
-        <div className="p-sm-12 p-md-6">
-          <TagsInput tagIds={tagIds} onChange={newTagIds => setTagIds(newTagIds)} />
+        <div className="p-sm-12">
+          <Button label="Submit" icon="pi pi-check" onClick={handleSubmit} />
         </div>
-        <div className="p-sm-0 p-md-6" />
-      </div>
-      <div className="p-grid">
-        <div className="p-sm-12 p-md-6">
-          <Button label="Click" icon="pi pi-check" onClick={handleSubmit} />
-        </div>
-        <div className="p-sm-0 p-md-6" />
       </div>
     </div>
   );

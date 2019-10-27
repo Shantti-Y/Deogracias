@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import './style.scss'
 
 import { OrderList } from 'primereact/orderlist';
+import { Button } from 'primereact/button';
 
 interface ImageUrlPreviewListProps {
   imageUrls: string[],
@@ -23,7 +24,7 @@ const ImageUrlPreviewList: FC<ImageUrlPreviewListProps> = props => {
           src={imageUrl}
           alt={imageUrl}
         />
-        <button onClick={() => handleItemRemove(imageUrl)}>Remove</button>
+        <Button icon="pi pi-times" className="p-button-danger" onClick={() => handleItemRemove(imageUrl)}/>
       </div>
     )
   };
@@ -35,7 +36,6 @@ const ImageUrlPreviewList: FC<ImageUrlPreviewListProps> = props => {
       dragdrop
       responsive
       onChange={event => props.onChange(event.value)}
-      header="Image Preview"
     />
   );
 };

@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { FC, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import DrawerItem from './Drawer';
@@ -12,10 +12,9 @@ import MangaForm from '@component/MangaForm';
 import { fetchAllTags } from '@action/entity/tag';
 import { createManga } from '@action/entity/manga';
 
-import { statusType } from '@util/appStatus';
+import { statusType, successStatus } from '@util/appStatus';
 
 interface ComponentStateProps {
-  mangas: MangaEntity[];
   appStatus: statusType
 }
 interface ComponentDispatchProps {
@@ -25,27 +24,25 @@ interface ComponentDispatchProps {
 interface ComponentOwnProps {}
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const MangasNew: FC<ComponentProps> = props => {
+  const history = useHistory();
 
-  const prevMangas = useRef([] as MangaEntity[]);
-  prevMangas.current = props.mangas;
   useEffect(() => {
     props.onPageLoad();
   }, []);
+
+  useEffect(() => {
+    if (props.appStatus === successStatus.CREATED_MANGA) {
+      history.push('/');
+    }
+  }, [props.appStatus]);
   
-  if (prevMangas.current.length < props.mangas.length) {
-    return <Redirect to="/" />
-  }else{
-    return (
-      <div>
-        <MangaForm
-          onSubmit={manga => props.onSubmit(manga)}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <MangaForm onSubmit={manga => props.onSubmit(manga)} />
+    </div>
+  );
 };
 const mapStateToProps = state => ({
-  mangas: state.entity.manga.mangas,
   appStatus: state.util.appStatus.status
 });
 

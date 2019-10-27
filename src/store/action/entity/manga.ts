@@ -54,13 +54,6 @@ export const deleteManga: reduxAction<{ mangaId: number}> = {
 };
 export type deleteMangaType = ReturnType<typeof deleteManga.action>;
 
-const CHANGE_SELECTED_MANGA_ID = 'entity/manga/CHANGE_SELECTED_MANGA_ID';
-export const changeSelectedMangaId: reduxAction<{ mangaId: number }> = {
-  name: CHANGE_SELECTED_MANGA_ID,
-  action: (mangaId: number) => ({ type: CHANGE_SELECTED_MANGA_ID, payload: { mangaId } })
-};
-export type changeSelectedMangaIdType = ReturnType<typeof changeSelectedMangaId.action>;
-
 // for calling reducers
 const SET_MANGAS = 'entity/manga/SET_MANGAS';
 export const setMangas: reduxAction<{ mangas: MangaEntity[] }> = {

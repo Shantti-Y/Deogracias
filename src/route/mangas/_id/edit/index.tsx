@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState, useRef } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { TableName, appDB } from '@util/database';
@@ -12,12 +12,12 @@ export const EditMangaHeaderItem = HeaderItem;
 import MangaForm from '@component/MangaForm';
 
 import { fetchAllTags } from '@action/entity/tag';
-import { updateManga, changeSelectedMangaId } from '@action/entity/manga';
+import { updateManga, fetchMangaById } from '@action/entity/manga';
 
-import { statusType } from '@util/appStatus';
+import { statusType, successStatus } from '@util/appStatus';
 
 interface ComponentStateProps {
-  mangas: MangaEntity[];
+  manga: MangaEntity;
   appStatus: statusType
 }
 interface ComponentDispatchProps {
@@ -27,60 +27,44 @@ interface ComponentDispatchProps {
 interface ComponentOwnProps { }
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const MangasIdEdit: FC<ComponentProps> = props => {
-  const [manga, setManga] = useState({
-    id: undefined,
-    name: '',
-    pages: [{ url: '' }],
-    tagIds: []
-  } as MangaEntity);
 
   const { id: paramId } = useParams();
-
-  const prevManga = useRef({
-    id: undefined,
-    name: '',
-    pages: [{ url: '' }],
-    tagIds: []
-  } as MangaEntity);
-  prevManga.current = manga;
+  const history = useHistory();
 
   useEffect(() => {
     if (paramId) {
       const initId = parseInt(paramId);
       props.onPageLoad(initId);
-      appDB[TableName.Mangas].get({ id: initId }).then(result => {
-        if (result) {
-          setManga(result);
-        }
-      });
     }
   }, []);
 
+  useEffect(() => {
+    if (props.appStatus === successStatus.UPDATED_MANGA) {
+      history.push('/');
+    }
+  }, [props.appStatus]);
+
   const handleSubmit = (newManga: MangaEntity) => {
-    props.onSubmit(Object.assign({}, manga, newManga));
+    props.onSubmit(Object.assign({}, props.manga, newManga));
   }
 
-  if (JSON.stringify(prevManga.current) !== JSON.stringify(manga)) {
-    return <Redirect to="/" />
-  } else {
-    return (
-      <div>
-        <MangaForm
-          initialManga={manga}
-          onSubmit={newManga => handleSubmit(newManga)}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <MangaForm
+        initialManga={props.manga}
+        onSubmit={newManga => handleSubmit(newManga)}
+      />
+    </div>
+  );
 };
 const mapStateToProps = state => ({
-  mangas: state.entity.manga.mangas,
+  manga: state.entity.manga.selectedManga,
   appStatus: state.util.appStatus.status
 });
 
 const mapDispatchToProps = dispatch => ({
   onPageLoad: (mangaId: number) => {
-    dispatch(changeSelectedMangaId.action(mangaId));
+    dispatch(fetchMangaById.action(mangaId));
     dispatch(fetchAllTags.action());
   },
   onSubmit: (manga: MangaEntity) => dispatch(updateManga.action(manga))

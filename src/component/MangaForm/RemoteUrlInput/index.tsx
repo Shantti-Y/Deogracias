@@ -1,5 +1,7 @@
 import React, { FC, useState } from 'react';
 
+import './style.scss';
+
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
 
