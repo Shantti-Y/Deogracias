@@ -2,13 +2,12 @@ import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { TableName, appDB } from '@util/database';
-
 import DrawerItem from './Drawer';
 export const MangaViewerDrawerItem = DrawerItem;
 import HeaderItem from './Header';
 export const MangaViewerHeaderItem = HeaderItem;
 
+import ImageViewer from '@component/ImageViewer';
 import ZoomNavigator from '@component/ZoomNavigator';
 import PageNavigator from '@component/PageNavigator';
 
@@ -38,13 +37,9 @@ const MangasId: FC<ComponentProps> = props => {
     }
   }, [paramId]);
 
-  const imageSize = (): string => {
-    return `${windowSizePercent}vh`
-  }
-
   return (
     <div id="mangas-_id">
-      <img src={props.manga.pages[currentPageNumber].url} style={{ height: imageSize(), width: 'auto' }} />
+      <ImageViewer image={props.manga.pages[currentPageNumber]} sizePercent={windowSizePercent} />
       <ZoomNavigator
         currentZoomPercent={windowSizePercent}
         onChange={percent => setWindowSizePercent(percent)}

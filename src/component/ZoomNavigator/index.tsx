@@ -39,12 +39,12 @@ const ZoomNavigator: FC<ZoomNavigatorProps> = props => {
   }
 
   return (
-    <Toolbar className="page-navigator">
+    <Toolbar className="zoom-navigator">
 
-      <div className="p-toolbar-group-left">
+      <div className="">
         <p>{`${props.currentZoomPercent}%`}</p>
       </div>
-      <div className="p-toolbar-group-right">
+      <div className="zoom-slider">
         <Slider
           orientation="vertical"
           min={100}

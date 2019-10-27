@@ -7,6 +7,16 @@
 
   .right-column {
     transition-duration: .3s;
+    .page-container {
+      width: 100%;
+      margin-top: 51px;
+      margin-right: 71px;
+
+      > div {
+        width: inherit;
+        position: relative;
+      }
+    }
   }
 }
 
@@ -33,8 +43,5 @@
   .right-column {
     margin-left: 280px;
     width: calc(100% - 280px) !important;
-    .page-container {
-      width: inherit;
-    }
   }
 }

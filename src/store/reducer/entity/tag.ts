@@ -7,11 +7,14 @@ import {
 
 interface TagState {
   tags: TagEntity[],
-  selectedTag?: TagEntity
+  selectedTag: TagEntity
 }
 const initialState: TagState = {
   tags: [],
-  selectedTag: undefined
+  selectedTag: {
+    id: undefined,
+    name: ''
+  }
 };
 
 const functions = {

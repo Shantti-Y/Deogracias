@@ -49,21 +49,23 @@ const PageNavigator: FC<PageNavigatorProps> = props => {
 
   return (
     <Toolbar className="page-navigator">
-      
-      <div className="p-toolbar-group-left">
+      <div className="p-toolbar-group-left page-number">
         <p>{`${currentPageNumber()} / ${maxPageNumber()}`}</p>
       </div>
-      <div className="p-toolbar-group-right">
-        <Button icon="pi pi-angle-double-left" onClick={() => handleChangePageIdx(0)} />
-        <Button icon="pi pi-angle-left" onClick={() => handleChangePageIdx(props.currentPageIdx - 1)} />
-        <Button icon="pi pi-angle-right" onClick={() => handleChangePageIdx(props.currentPageIdx + 1)} />
-        <Button icon="pi pi-angle-double-right" onClick={() => handleChangePageIdx(props.maxPageIdx)} />
+      <div className="p-toolbar-group-left page-slider">
         <Slider
           min={1}
           max={maxPageNumber()}
           value={currentPageNumber()}
-          onChange={event=> handleChangePageIdx((event.value as number)- 1)}
+          onChange={event => handleChangePageIdx((event.value as number) - 1)}
         />
+
+      </div>
+      <div className="p-toolbar-group-right buttons">
+        <Button icon="pi pi-angle-double-left" onClick={() => handleChangePageIdx(0)} />
+        <Button icon="pi pi-angle-left" onClick={() => handleChangePageIdx(props.currentPageIdx - 1)} />
+        <Button icon="pi pi-angle-right" onClick={() => handleChangePageIdx(props.currentPageIdx + 1)} />
+        <Button icon="pi pi-angle-double-right" onClick={() => handleChangePageIdx(props.maxPageIdx)} />
       </div>
     </Toolbar>
   );

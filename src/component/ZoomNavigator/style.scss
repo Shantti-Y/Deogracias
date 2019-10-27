@@ -1,0 +1,18 @@
+.zoom-navigator {
+  position: fixed;
+  right: 0;
+  height: calc(100% - 99px);
+  top: 49px;
+
+  .zoom-slider {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 80px);
+    .p-slider {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 100%;
+    }
+  }
+}

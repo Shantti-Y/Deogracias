@@ -7,11 +7,16 @@ import {
 
 interface MangaState {
   mangas: MangaEntity[],
-  selectedManga?: MangaEntity
+  selectedManga: MangaEntity
 }
 const initialState: MangaState = {
   mangas: [],
-  selectedManga: undefined
+  selectedManga: {
+    id: undefined,
+    name: '',
+    pages: [],
+    tagIds: []
+  }
 };
 
 const functions = {

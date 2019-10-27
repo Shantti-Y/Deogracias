@@ -1,6 +1,35 @@
 .page-navigator {
-  position: fixed;
-  bottom: 0;
+  position: absolute;
+  bottom: -46px;
   box-sizing: border-box;
   width: inherit;
+  display: inline-flex;
+  justify-content: space-between;
+  height: 65px;
+
+  .page-number {
+    p {
+      margin: 13px 0;
+    }
+  }
+
+  .page-slider {
+    position: relative;
+    margin-left: 10px;
+    width: calc(100% - 75px - 200px);
+    .p-slider {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+    }
+  }
+
+  .buttons {
+    margin: 7px 0;
+    > button {
+      margin-left: 10px;
+      border-radius: 20px;
+    }
+  }
 }

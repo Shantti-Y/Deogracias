@@ -1,0 +1,11 @@
+.image-viewer {
+  width: calc(100% - 55px);
+  overflow: scroll;
+  height: calc(100vh - 97px);
+  background: #333333;
+  text-align: center;
+
+  &::-webkit-scrollbar{
+    width: 0;
+  }
+}
