@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { MultiSelect } from 'primereact/multiselect';
 
+import FormLabel from '@component/MangaForm/FormLabel';
+
 import './style.scss';
 
 interface ComponentOwnProps {
@@ -23,8 +25,8 @@ const TagsInput: FC<ComponentProps> = props => {
   }
 
   return (
-    <div>
-      Tags
+    <div className="tags-input">
+      <FormLabel name="Tags" />
       <MultiSelect
         value={props.tagIds}
         options={selectableItems()}

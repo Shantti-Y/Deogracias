@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 
-import './style.scss'
+import './style.scss';
 
 interface LocalUrlInputProps {
   onFileSelected: (imageUrls: string[]) => void
@@ -18,7 +18,7 @@ const LocalUrlInput: FC<LocalUrlInputProps> = props => {
   
   return (
     <div className={`manga-form local-url-input ${dragActiveClassname}`}>
-      <span>LocalImageSetting</span>
+      <h3>LocalImageSetting</h3>
       <div className="uploader-form">
         <input id="local-image-urls"
           type="file"

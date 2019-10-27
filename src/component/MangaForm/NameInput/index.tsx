@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 
+import './style.scss';
+
 import { InputText } from 'primereact/inputtext';
+
+import FormLabel from '@component/MangaForm/FormLabel';
 
 interface NameInputProps {
   value: string,
@@ -14,12 +18,12 @@ const NameInput: FC<NameInputProps> = props => {
   }
 
   return (
-    <div className="p-float-label"> 
+    <div className="name-input"> 
+      <FormLabel name="Manga Name" />
       <InputText
         value={props.value}
         onChange={event => handleChange(event)}
       />
-<label>Manga Name</label>
     </div>
   );
 };

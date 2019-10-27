@@ -64,8 +64,8 @@ const MangaForm: FC<ComponentProps> = props => {
   }
 
   return (
-    <div>
-      <div className="p-grid">
+    <div className="manga-form">
+      <div className="p-grid manga-form-row">
         <div className="p-sm-12 p-md-6">
           <NameInput value={name} onInput={value => setName(value)} />
         </div>
@@ -73,7 +73,7 @@ const MangaForm: FC<ComponentProps> = props => {
           <TagsInput tagIds={tagIds} onChange={newTagIds => setTagIds(newTagIds)} />
         </div>
       </div>
-      <div className="p-grid">
+      <div className="p-grid manga-form-row">
         <div className="p-sm-12 p-md-6 local-image">
           <LocalUrlInput onFileSelected={additionalImageUrls => insertImageUrls(additionalImageUrls, ImageLocation.Local)} />
         </div>
@@ -81,12 +81,12 @@ const MangaForm: FC<ComponentProps> = props => {
           <RemoteUrlInput onSubmit={additionalImageUrls=> insertImageUrls(additionalImageUrls, ImageLocation.Remote)} />
         </div>
       </div>
-      <div className="p-grid">
+      <div className="p-grid manga-form-row">
         <div className="p-sm-12">
           <ImageUrlPreviewList imageUrls={imageUrls} onChange={newImageUrls => setImageUrls(newImageUrls)} />
         </div>
       </div>
-      <div className="p-grid">
+      <div className="p-grid manga-form-row">
         <div className="p-sm-12">
           <Button label="Submit" icon="pi pi-check" onClick={handleSubmit} />
         </div>

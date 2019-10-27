@@ -5,6 +5,10 @@ import './style.scss';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { ProgressSpinner } from 'primereact/progressspinner';
+import { Accordion, AccordionTab } from 'primereact/accordion';
+
+import FormLabel from '@component/MangaForm/FormLabel';
 
 interface RemoteUrlInputProps {
   onSubmit: (imagePaths: string[]) => void
@@ -24,6 +28,7 @@ const RemoteUrlInput: FC<RemoteUrlInputProps> = props => {
     limitLinks: 0
   } as RemoteSiteCrawlerSetting);
   const [fetchingRemoteUrls, setFetchingRemoteUrls] = useState(false);
+  const [settingMode, setSettingMode] = useState(0);
 
   const handleInlineTextChanged = (event: React.FormEvent) => {
     const target = event.target as HTMLTextAreaElement;
@@ -54,45 +59,61 @@ const RemoteUrlInput: FC<RemoteUrlInputProps> = props => {
         body: JSON.stringify(remoteSiteCrawlerSetting)
       }).then((response) => response.json());
       setFetchingRemoteUrls(false);
+      setRemoteSiteCrawlerSetting({
+        siteUrl: '',
+        imageSelector: '',
+        nextLinkSelector: '',
+        limitLinks: 0
+      });
       props.onSubmit(fetchResult.imageUrls);
     }
   }
 
   return (
     <div>
-      RemoteImageSetting
-
-      <div>
-        <InputTextarea
-          value={imageUrlInlineText}
-          autoResize={true}
-          onChange={event => handleInlineTextChanged(event)}
-        />
-        <Button label="Add Urls" onClick={handleInlineSubmitted} />
-      </div>
-      <div>
-        <InputText
-          value={remoteSiteCrawlerSetting.siteUrl}
-          onChange={event => handleCrawlerSettingChanged('siteUrl', event)}
-          placeholder="site url"
-        />
-        <InputText
-          value={remoteSiteCrawlerSetting.imageSelector}
-          onChange={event => handleCrawlerSettingChanged('imageSelector', event)}
-          placeholder="image selector (e.g. body > a > image)"
-        />
-        <InputText
-          value={remoteSiteCrawlerSetting.nextLinkSelector}
-          onChange={event => handleCrawlerSettingChanged('nextLinkSelector', event)}
-          placeholder="next link selector (e.g. body > a)"
-        />
-        <InputText
-          value={remoteSiteCrawlerSetting.limitLinks}
-          onChange={event => handleCrawlerSettingChanged('limitLinks', event)}
-          placeholder="limit link number"
-        />
-        <Button label="Get Images From Website" onClick={handleCrawlingSettingSubmitted} />
-      </div>
+      <h3>LocalImageSetting</h3>
+      <Accordion activeIndex={settingMode} onTabChange={event => setSettingMode(event.index)}>
+        <AccordionTab header="Type Urls Yourself">
+          <div>
+            <InputTextarea
+              value={imageUrlInlineText}
+              autoResize={true}
+              onChange={event => handleInlineTextChanged(event)}
+            />
+            <Button label="Add Urls" onClick={handleInlineSubmitted} />
+          </div>
+        </AccordionTab>
+        <AccordionTab header="Get Resources from Another Site">
+          <div className="remote-site-settings">
+            {fetchingRemoteUrls ? <div className="spinner-wrapper"><ProgressSpinner strokeWidth="2" /></div> : null}
+            <FormLabel name="Site Url" />
+            <InputText
+              value={remoteSiteCrawlerSetting.siteUrl}
+              onChange={event => handleCrawlerSettingChanged('siteUrl', event)}
+              placeholder="site url"
+            />
+            <FormLabel name="Image Tag Selector" />
+            <InputText
+              value={remoteSiteCrawlerSetting.imageSelector}
+              onChange={event => handleCrawlerSettingChanged('imageSelector', event)}
+              placeholder="image selector (e.g. body > a > image)"
+            />
+            <FormLabel name="Next Link Tag Selector (Optional)" />
+            <InputText
+              value={remoteSiteCrawlerSetting.nextLinkSelector}
+              onChange={event => handleCrawlerSettingChanged('nextLinkSelector', event)}
+              placeholder="next link selector (e.g. body > a)"
+            />
+            <FormLabel name="Number of click count limit(Optional)" />
+            <InputText
+              value={remoteSiteCrawlerSetting.limitLinks}
+              onChange={event => handleCrawlerSettingChanged('limitLinks', event)}
+              placeholder="limit link number"
+            />
+            <Button label="Get Images From Website" onClick={handleCrawlingSettingSubmitted} />
+          </div>
+        </AccordionTab>
+      </Accordion>
     </div>
     
   );
