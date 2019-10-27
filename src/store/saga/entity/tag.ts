@@ -44,10 +44,7 @@ function* invokeFetchTagById(action: fetchTagByIdType) {
 function* invokeFetchTagsByIds(action: fetchTagsByIdsType) {
   const { tagIds } = action.payload;
   const tags = yield call(() => {
-    appDB[TableName.Tags]
-      .where('id')
-      .anyOf(tagIds)
-      .toArray()
+    return appDB[TableName.Tags].where('id').anyOf(tagIds).toArray()
   });
   yield put(setTags.action(tags));
 }

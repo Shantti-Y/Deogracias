@@ -12,6 +12,7 @@ import ZoomNavigator from '@component/ZoomNavigator';
 import PageNavigator from '@component/PageNavigator';
 
 import { fetchMangaById } from '@action/entity/manga';
+import { fetchTagsByIds } from '@action/entity/tag';
 
 import { statusType } from '@util/appStatus';
 
@@ -21,6 +22,7 @@ interface ComponentStateProps {
 }
 interface ComponentDispatchProps {
   onPageLoad: (mangaId: number) => void;
+  onSetManga: (tagIds: number[]) => void
 }
 interface ComponentOwnProps { }
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
@@ -34,8 +36,16 @@ const MangasId: FC<ComponentProps> = props => {
     if (paramId) {
       const initId = parseInt(paramId);
       props.onPageLoad(initId);
+      setCurrentPageNumber(0);
+      setWindowSizePercent(100);
     }
   }, [paramId]);
+
+  useEffect(() => {
+    if (props.manga) {
+      props.onSetManga(props.manga.tagIds);
+    }
+  }, [props.manga]);
 
   return (
     <div id="mangas-_id">
@@ -58,7 +68,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onPageLoad: (mangaId: number) => dispatch(fetchMangaById.action(mangaId))
+  onPageLoad: (mangaId: number) => dispatch(fetchMangaById.action(mangaId)),
+  onSetManga: (tagIds: number[]) => dispatch(fetchTagsByIds.action(tagIds))
 });
 
 export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(MangasId);

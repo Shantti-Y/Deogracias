@@ -1,14 +1,23 @@
 import React, { FC } from 'react';
+import { connect } from 'react-redux';
 
 import ItemContainer from '@component/HeaderItem/ItemContainer';
 
-interface NewMangaProps { }
-const NewManga: FC<NewMangaProps> = props => {
+interface ComponentStateProps {
+  manga: MangaEntity;
+}
+interface ComponentDispatchProps { }
+interface ComponentOwnProps { }
+type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
+const MangasIdEdit: FC<ComponentProps> = props => {
+  const mangaName = props.manga ? `Edit: ${props.manga.name}` : "";
 
   return (
-    <ItemContainer title="Edit Manga">
-
+    <ItemContainer title={mangaName}>
     </ItemContainer>
-  )
+  );
 }
-export default NewManga;
+const mapStateToProps = state => ({
+  manga: state.entity.manga.selectedManga
+});
+export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, {})(MangasIdEdit);

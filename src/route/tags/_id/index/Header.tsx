@@ -10,16 +10,12 @@ interface ComponentDispatchProps {}
 interface ComponentOwnProps {}
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const Header: FC<ComponentProps> = props => {
-
-  const tagName = () => {
-    return props.tag ? props.tag.name : ""
-  }
+  const tagName = props.tag ? props.tag.name : "";
 
   return (
-    <ItemContainer title={`Tagged Book List: ${tagName()}`}>
-
+    <ItemContainer title={`Tagged Book List: ${tagName}`}>
     </ItemContainer>
-  )
+  );
 }
 
 const mapStateToProps = state => ({

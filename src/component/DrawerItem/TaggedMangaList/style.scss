@@ -1,0 +1,30 @@
+.tagged-manga-list {
+  .manga-link {
+    padding: 7px 10px;
+    display: block;
+    height: 90px;
+    height: 100%;
+    border-bottom: 1px solid #e3e9ea;
+    overflow: hidden;
+    img {
+      float: left;
+      width: 60px;
+      max-height: 100%;
+    }
+
+    .manga-info {
+      float: right;
+      width: calc(100% - 80px);
+    }
+
+    &:hover {
+      opacity: 0.5;
+
+      .manga-info {
+        span {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
