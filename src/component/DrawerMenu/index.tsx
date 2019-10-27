@@ -21,8 +21,8 @@ const DrawerMenu: FC<DrawerMenuProps> = props => {
       onHide={() => handleClosed()}
       showCloseIcon={false}
     >
-      <div>
-        Deogracias
+      <div className="site-title">
+        <h1>Deogracias</h1>
       </div>
       <props.itemComponent />
     </Sidebar>

@@ -64,9 +64,10 @@ const MangaList: FC<ComponentProps> = props => {
           <Link to={`/mangas/${manga.id}`} >
             <img src={imageSrc} alt={imageSrc} />
           </Link>
-        </div>
-        <div className="manga-item-name">
-          <span>{manga.name}</span>
+
+          <div className="manga-item-name">
+            <span>{manga.name}</span>
+          </div>
         </div>
       </div>
     )
