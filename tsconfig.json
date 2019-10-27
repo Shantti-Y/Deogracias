@@ -1,0 +1,30 @@
+{
+	"compilerOptions": {
+		"outDir": "./dist/",
+		"sourceMap": true,
+		"noImplicitAny": false,
+		"module": "esnext",
+		"target": "esnext",
+		"jsx": "react",
+		"lib": [
+			"esnext",
+			"esnext.asynciterable",
+			"dom"
+		],
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"moduleResolution": "node",
+		"allowJs": false,
+		"strict": true,
+		"noEmit": false,
+		"baseUrl": "src",
+		"paths": {
+			"@routes/*": ["routes/*"]
+		}
+	},
+	"exclude": [
+		"dist",
+		"node_modules"
+	],
+	"include": ["src/**/*"]
+}
