@@ -1,6 +1,7 @@
 import path from 'path';
 import express from 'express';
 
+
 const mainRouter = express.Router();
 
 const indexHtmlFile = path.resolve('./src/template/index.html');
