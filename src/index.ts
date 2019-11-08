@@ -1,17 +1,24 @@
-import * as Express from 'express';
+import path from 'path';
+import express from 'express';
+import bodyParser from 'body-parser';
 
-const app = Express();
+import router from '@route/index';
 
-app.get(
-  '/',
-  (req: Express.Request, res: Express.Response) => {
-    return res.send('Hello world.');
-  });
+const distDir = path.resolve(__dirname, `src`);
 
-app.listen(
+const mainApp = express();
+const apiApp = express();
+
+apiApp.use(router.apiRouter);
+
+mainApp.use(bodyParser.json());
+mainApp.use(bodyParser.urlencoded({ extended: true }));
+mainApp.use(router.clientRouter);
+mainApp.use(express.static(distDir));
+mainApp.use('/api', apiApp);
+
+mainApp.listen(
   3000,
   () => {
-    console.log('Example app listening on port 3000!');
-  });
-
-export default app;
+    console.log('Deogracias listening on port 3000!');
+});

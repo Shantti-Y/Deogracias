@@ -19,7 +19,8 @@
 		"noEmit": false,
 		"baseUrl": "src",
 		"paths": {
-			"@routes/*": ["routes/*"]
+			"@route/*": ["route/*"],
+			"@util/*": ["util/*"],
 		}
 	},
 	"exclude": [

@@ -57,7 +57,14 @@ module.exports = {
 			}
 		]
 	},
-	resolve: { extensions: ['.ts', '.js'] },
+	resolve: {
+		extensions: ['.ts', '.js'],
+		alias: {
+			'@route': modulePath.resolve(__dirname, `${entryDir}/route`),
+			'@template': modulePath.resolve(__dirname, `${entryDir}/template`),
+			'@util': modulePath.resolve(__dirname, `${entryDir}/util`)
+		}
+	},
 	output: {
 		filename: 'server.js',
     path: modulePath.resolve(__dirname, 'dist')
