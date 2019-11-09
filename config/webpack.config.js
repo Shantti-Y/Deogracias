@@ -2,10 +2,11 @@ const modulePath = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const entryDir = '../src';
+const appDir = `${entryDir}/app`;
 const outDir = '../dist';
 
 module.exports = {
-	entry: { index: [modulePath.resolve(__dirname, `${entryDir}/index.tsx`)] },
+	entry: { index: [modulePath.resolve(__dirname, `${appDir}/index.tsx`)] },
 	output: {
 		filename: 'main.js',
 		path: modulePath.resolve(__dirname, `${outDir}`),
@@ -73,15 +74,15 @@ module.exports = {
 	resolve: {
 		extensions: ['.js', '.jsx', '.ts', '.tsx', '.jpg', '.png', '.scss'],
 		alias: {
-			'@asset': modulePath.resolve(__dirname, `${entryDir}/asset`),
-			'@component': modulePath.resolve(__dirname, `${entryDir}/component`),
-			'@layout': modulePath.resolve(__dirname, `${entryDir}/layout`),
-			'@route': modulePath.resolve(__dirname, `${entryDir}/route`),
-			'@store': modulePath.resolve(__dirname, `${entryDir}/store`),
-			'@action': modulePath.resolve(__dirname, `${entryDir}/store/action`),
-			'@reducer': modulePath.resolve(__dirname, `${entryDir}/store/reducer`),
-			'@saga': modulePath.resolve(__dirname, `${entryDir}/store/saga`),
-			'@util': modulePath.resolve(__dirname, `${entryDir}/util`)
+			'@appAsset': modulePath.resolve(__dirname, `${appDir}/asset`),
+			'@appComponent': modulePath.resolve(__dirname, `${appDir}/component`),
+			'@appLayout': modulePath.resolve(__dirname, `${appDir}/layout`),
+			'@appRoute': modulePath.resolve(__dirname, `${appDir}/route`),
+			'@appStore': modulePath.resolve(__dirname, `${appDir}/store`),
+			'@appAction': modulePath.resolve(__dirname, `${appDir}/store/action`),
+			'@appReducer': modulePath.resolve(__dirname, `${appDir}/store/reducer`),
+			'@appSaga': modulePath.resolve(__dirname, `${appDir}/store/saga`),
+			'@appUtil': modulePath.resolve(__dirname, `${appDir}/util`)
 		}
 	}
 };

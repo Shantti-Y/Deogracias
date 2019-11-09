@@ -19,15 +19,15 @@
     "noEmit": false,
     "baseUrl": "src",
     "paths": {
-      "@asset/*": ["asset/*"],
-      "@component/*": ["component/*"],
-      "@layout/*": ["layout/*"],
-      "@route/*": ["route/*"],
-      "@store/*": ["store/*"],
-      "@action/*": ["store/action/*"],
-      "@reducer/*": ["store/reducer/*"],
-      "@saga/*": ["store/saga/*"],
-      "@util/*": ["util/*"]
+      "@appAsset/*": ["app/asset/*"],
+      "@appComponent/*": ["app/component/*"],
+      "@appLyout/*": ["app/layout/*"],
+      "@appRoute/*": ["app/route/*"],
+      "@appStore/*": ["app/store/*"],
+      "@appAction/*": ["app/store/action/*"],
+      "@appReducer/*": ["app/store/reducer/*"],
+      "@appSaga/*": ["app/store/saga/*"],
+      "@appUtil/*": ["app/util/*"]
     },
   },
   "exclude": [
