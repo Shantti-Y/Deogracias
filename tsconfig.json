@@ -21,7 +21,7 @@
     "paths": {
       "@appAsset/*": ["app/asset/*"],
       "@appComponent/*": ["app/component/*"],
-      "@appLyout/*": ["app/layout/*"],
+      "@appLayout/*": ["app/layout/*"],
       "@appRoute/*": ["app/route/*"],
       "@appStore/*": ["app/store/*"],
       "@appAction/*": ["app/store/action/*"],

@@ -1,5 +1,5 @@
-import clientRouter from '@route/client';
-import apiRouter from '@route/api';
+import clientRouter from '@serverRoute/client';
+import apiRouter from '@serverRoute/api';
 
 export default {
   clientRouter,

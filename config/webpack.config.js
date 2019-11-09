@@ -1,25 +1,25 @@
 const modulePath = require('path');
+const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 const entryDir = '../src';
 const appDir = `${entryDir}/app`;
 const serverDir = `${entryDir}/server`;
 const outDir = '../dist';
 
-module.exports = {
-	entry: { index: [modulePath.resolve(__dirname, `${appDir}/index.tsx`)] },
+const commonConfig = {
 	output: {
-		filename: 'main.js',
+		filename: '[name].js',
 		path: modulePath.resolve(__dirname, `${outDir}`),
 		publicPath: '/'
 	},
-	target: "web",
 	mode: "development",
 	devtool: "source-map",
 	module: {
 		rules: [
 			{
-				test: /\.ts(x?)$/,
+				test: /\.(ts|tsx)/,
 				exclude: /node_modules/,
 				use: [{ loader: "ts-loader" }]
 			},
@@ -39,7 +39,7 @@ module.exports = {
 			{
 				test: /\.less$/,
 				use: [
-					{ loader: "style-loader" }, 
+					{ loader: "style-loader" },
 					{ loader: "css-loader" },
 					{
 						loader: "less-loader",
@@ -52,7 +52,7 @@ module.exports = {
 				use: {
 					loader: 'file-loader',
 					options: {
-						outputPath: modulePath.resolve(__dirname, `${entryDir}/assets/image`),
+						outputPath: modulePath.resolve(__dirname, `${appDir}/assets/image`),
 						publicPath: modulePath.resolve(__dirname, `${outDir}/assets/image`)
 					}
 				}
@@ -63,7 +63,6 @@ module.exports = {
 			}
 		]
 	},
-	node: { fs: "empty" },
 	devServer: {
 		inline: true,
 		contentBase: modulePath.join(__dirname, './'),
@@ -71,9 +70,13 @@ module.exports = {
 		hot: true,
 		historyApiFallback: true
 	},
+	resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx', '.jpg', '.png', '.scss'] }
+};
+
+const appConfig = merge(commonConfig, {
+	entry: { app: [modulePath.resolve(__dirname, `${appDir}/index.tsx`)] },
 	plugins: [new HtmlWebpackPlugin({ template: './src/app/index.html' })],
 	resolve: {
-		extensions: ['.js', '.jsx', '.ts', '.tsx', '.jpg', '.png', '.scss'],
 		alias: {
 			'@appAsset': modulePath.resolve(__dirname, `${appDir}/asset`),
 			'@appComponent': modulePath.resolve(__dirname, `${appDir}/component`),
@@ -83,10 +86,24 @@ module.exports = {
 			'@appAction': modulePath.resolve(__dirname, `${appDir}/store/action`),
 			'@appReducer': modulePath.resolve(__dirname, `${appDir}/store/reducer`),
 			'@appSaga': modulePath.resolve(__dirname, `${appDir}/store/saga`),
-			'@appUtil': modulePath.resolve(__dirname, `${appDir}/util`),
+			'@appUtil': modulePath.resolve(__dirname, `${appDir}/util`)
+		}
+	},
+	node: { fs: "empty" },
+	target: "web"
+});
+
+// FIXME: SyntaxError: Unexpected identifier
+const serverConfig = merge(commonConfig, {
+	entry: { server: [modulePath.resolve(__dirname, `${serverDir}/index.ts`)] },
+	resolve: {
+		alias: {
 			'@serverRoute': modulePath.resolve(__dirname, `${serverDir}/route`),
 			'@serverTemplate': modulePath.resolve(__dirname, `${serverDir}/template`),
 			'@serverUtil': modulePath.resolve(__dirname, `${serverDir}/util`)
 		}
-	}
-};
+	},
+	target: "node"
+});
+
+module.exports = [appConfig, serverConfig];
