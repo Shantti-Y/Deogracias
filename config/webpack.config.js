@@ -70,7 +70,7 @@ module.exports = {
 		hot: true,
 		historyApiFallback: true
 	},
-	plugins: [new HtmlWebpackPlugin({ template: './index.html' })],
+	plugins: [new HtmlWebpackPlugin({ template: './src/app/index.html' })],
 	resolve: {
 		extensions: ['.js', '.jsx', '.ts', '.tsx', '.jpg', '.png', '.scss'],
 		alias: {
