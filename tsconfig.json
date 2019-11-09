@@ -34,8 +34,11 @@
     "dist",
     "node_modules"
   ],
-  "include": ["src/**/*"],
+  "include": [
+    "src/app/**/*",
+    "src/server/**/*"
+  ],
   "files": [
-    "./src/index.d.ts"
+    "src/app/index.d.ts"
   ]
 }
