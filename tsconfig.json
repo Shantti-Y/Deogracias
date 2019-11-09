@@ -27,7 +27,10 @@
       "@appAction/*": ["app/store/action/*"],
       "@appReducer/*": ["app/store/reducer/*"],
       "@appSaga/*": ["app/store/saga/*"],
-      "@appUtil/*": ["app/util/*"]
+      "@appUtil/*": ["app/util/*"],
+      "@serverRoute/*": ["server/route/*"],
+      "@serverTemplate/*": ["server/template/*"],
+      "@serverUtil/*": ["server/util/*"]
     },
   },
   "exclude": [

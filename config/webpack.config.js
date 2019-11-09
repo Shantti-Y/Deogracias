@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const entryDir = '../src';
 const appDir = `${entryDir}/app`;
+const serverDir = `${entryDir}/server`;
 const outDir = '../dist';
 
 module.exports = {
@@ -82,7 +83,10 @@ module.exports = {
 			'@appAction': modulePath.resolve(__dirname, `${appDir}/store/action`),
 			'@appReducer': modulePath.resolve(__dirname, `${appDir}/store/reducer`),
 			'@appSaga': modulePath.resolve(__dirname, `${appDir}/store/saga`),
-			'@appUtil': modulePath.resolve(__dirname, `${appDir}/util`)
+			'@appUtil': modulePath.resolve(__dirname, `${appDir}/util`),
+			'@serverRoute': modulePath.resolve(__dirname, `${serverDir}/route`),
+			'@serverTemplate': modulePath.resolve(__dirname, `${serverDir}/template`),
+			'@serverUtil': modulePath.resolve(__dirname, `${serverDir}/util`)
 		}
 	}
 };
