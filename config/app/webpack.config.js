@@ -18,7 +18,6 @@ const appConfig = merge(commonConfig, {
 			chunks: ['app']
 		}),
 		new HtmlWebpackPlugin({
-			filename: 'lp',
 			template: './src/index.html',
 			chunks: ['lp']
 		})
