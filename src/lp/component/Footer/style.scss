@@ -1,0 +1,25 @@
+.footer {
+  width: 100%;
+  background: #343434;
+  text-align: center;
+  padding: 60px;
+
+  .links {
+    margin-bottom: 25px;
+    .footer-link {
+      color: #0079bf;
+      text-decoration: underline;
+      margin: 0 20px;
+    }
+  }
+
+  .copyright {
+    color: #ebebeb;
+
+    span {
+      font-size: 14px;
+      margin-left: 12px;
+      font-weight: normal;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.feature {
+  overflow: hidden;
+  .info {
+    width: 50%;
+    i {}
+    h2 {}
+    p {}
+  }
+
+  img {
+    width: 50%;
+  }
+}
+
+.odd {
+  .info {
+    float: left;
+
+  }
+  img {
+    float: right;
+  }
+}
+.even {
+  .info {
+    float: right;
+
+  }
+  img {
+    float: left;
+  }
+}

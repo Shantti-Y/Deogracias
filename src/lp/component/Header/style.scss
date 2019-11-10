@@ -1,0 +1,23 @@
+  .header {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+
+    @media all and (max-width: 640px) {
+      .for-mobile {
+        display: block;
+      }
+      .for-desktop {
+        display: none;
+      }
+    }
+
+    @media all and (min-width: 641px) {
+      .for-mobile {
+        display: none;
+      }
+      .for-desktop {
+        display: block;
+      }
+    }
+  }

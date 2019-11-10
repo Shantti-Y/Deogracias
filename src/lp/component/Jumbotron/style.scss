@@ -1,0 +1,15 @@
+.jumbotron {
+   width: 100%;
+}
+
+@media all and (max-width: 640px) {
+  .jumbotron {
+    padding: 40px 20px;
+  }
+}
+
+@media all and (min-width: 641px) {
+  .jumbotron {
+    padding: 40px 60px;
+  }
+}
