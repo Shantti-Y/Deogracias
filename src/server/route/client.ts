@@ -1,12 +1,11 @@
 import path from 'path';
 import express from 'express';
 
-
 const mainRouter = express.Router();
 
-const indexHtmlFile = path.resolve('./src/server/template/index.html');
+const lpHtmlFile = path.resolve('./src/lp/index.html');
 mainRouter.get('/(*{0}|about/downloads)', (_, res) => {
-  res.sendFile(indexHtmlFile);
+  res.sendFile(lpHtmlFile);
 });
 
 export default mainRouter;

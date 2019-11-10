@@ -30,7 +30,11 @@
       "@appUtil/*": ["app/util/*"],
       "@serverRoute/*": ["server/route/*"],
       "@serverTemplate/*": ["server/template/*"],
-      "@serverUtil/*": ["server/util/*"]
+      "@serverUtil/*": ["server/util/*"],
+      "@lpAsset/*": ["lp/asset/*"],
+      "@lpComponent/*": ["lp/component/*"],
+      "@lpLayout/*": ["lp/layout/*"],
+      "@lpRoute/*": ["lp/route/*"]
     },
   },
   "exclude": [
@@ -39,7 +43,7 @@
   ],
   "include": [
     "src/app/**/*",
-    "src/server/**/*"
+    "src/server/**/*", "src/lp/index.tsx"
   ],
   "files": [
     "src/app/index.d.ts"

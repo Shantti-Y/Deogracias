@@ -2,8 +2,8 @@
   "name": "helloworld",
   "author": "Takahiro Yoshioka (Shantti_Y)",
   "license": "MIT",
-  "main": "http://localhost:9000",
-  "node-remote": "http://localhost:9000",
+  "main": "http://localhost:9000/app",
+  "node-remote": "http://localhost:9000/app",
   "dependencies": {
     "body-parser": "^1.19.0",
     "classnames": "^2.2.6",
@@ -11,6 +11,8 @@
     "dayjs": "^1.8.16",
     "dexie": "^2.0.4",
     "express": "^4.17.1",
+    "nw": "^0.42.3",
+    "nw-builder": "^3.5.7",
     "primeflex": "^1.0.0",
     "primeicons": "^2.0.0",
     "primereact": "^3.3.1",
@@ -36,6 +38,7 @@
     "@types/react-router-dom": "^5.1.0",
     "@typescript-eslint/parser": "^2.4.0",
     "babel-loader": "^8.0.6",
+    "bufferutil": "^4.0.1",
     "css-loader": "^3.2.0",
     "eslint": "^6.5.1",
     "file-loader": "^4.2.0",
@@ -51,6 +54,7 @@
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4",
     "url-loader": "^2.2.0",
+    "utf-8-validate": "^5.0.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2",
@@ -59,8 +63,9 @@
   },
   "scripts": {
     "app-dev": "nw",
-    "server-dev": "nodemon ./src/server/index.ts",
-    "webpack-dev": "webpack-dev-server --config ./config/webpack.config.js",
+    "server-dev": "nodemon ./dist/server.js",
+    "webpack-app": "webpack-dev-server --config ./config/app/webpack.config.js",
+    "webpack-server": "webpack --config ./config/server/webpack.config.js -w",
     "eslint": "eslint 'src/**' -c .eslintrc",
     "eslint-fix": "eslint 'src/**' -c .eslintrc --fix"
   }

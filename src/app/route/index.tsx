@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import MainLayout from '@appLayout/Main';
-import ViewerLayout from '@appLayout/Viewer';
+import MainLayout from '@appLayout/Main/index';
+import ViewerLayout from '@appLayout/Viewer/index';
 
 import Dashboard, { DashboardDrawerItem, DashboardHeaderItem } from '@appRoute/dashboard';
 import MangasNew, { MangaEditorDrawerItem as MangaEditorDrawerItemOnNew, NewMangaHeaderItem } from '@appRoute/mangas/new';
@@ -25,7 +25,7 @@ const Router: FC<RouterProps> = () => {
     return <ViewerLayout drawerItem={components.drawer} headerItem={components.header}>{components.slot}</ViewerLayout>;
   }
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/app">
       <Switch>
         <Route path="/" exact render={() => renderRouteWithMainLayout({ slot: <Dashboard />, drawer: DashboardDrawerItem, header: DashboardHeaderItem })} />
         <Route path="/mangas/new" exact render={() => renderRouteWithMainLayout({ slot: <MangasNew />, drawer: MangaEditorDrawerItemOnNew, header: NewMangaHeaderItem })} />
