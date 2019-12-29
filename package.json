@@ -11,7 +11,7 @@
     "dayjs": "^1.8.16",
     "dexie": "^2.0.4",
     "express": "^4.17.1",
-    "nw": "^0.42.3",
+    "nw": "0.42.5-sdk",
     "nw-builder": "^3.5.7",
     "primeflex": "^1.0.0",
     "primeicons": "^2.0.0",
