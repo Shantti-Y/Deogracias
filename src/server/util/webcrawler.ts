@@ -6,8 +6,20 @@ export const crawl = async (
   limitLinks: number,
   nextLinkSelector?: string,
 ): Promise<string[]> => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    // TODO: enable to switch executable path depending on OS
+    executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+  });
   const page = await browser.newPage();
+
+  await page.setRequestInterception(true);
+  page.on('request', (request) => {
+    if (['image', 'stylesheet', 'font', 'script'].indexOf(request.resourceType()) !== -1) {
+      request.abort();
+    } else {
+      request.continue();
+    }
+  });
   await page.goto(targetUrl, { waitUntil: 'networkidle2' });
 
   let pageAccessed = true;
