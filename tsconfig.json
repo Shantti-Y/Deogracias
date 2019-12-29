@@ -19,22 +19,24 @@
     "noEmit": false,
     "baseUrl": "src",
     "paths": {
-      "@appAsset/*": ["app/asset/*"],
-      "@appComponent/*": ["app/component/*"],
-      "@appLayout/*": ["app/layout/*"],
-      "@appRoute/*": ["app/route/*"],
-      "@appStore/*": ["app/store/*"],
-      "@appAction/*": ["app/store/action/*"],
-      "@appReducer/*": ["app/store/reducer/*"],
-      "@appSaga/*": ["app/store/saga/*"],
-      "@appUtil/*": ["app/util/*"],
+      "@app/*": ["client/app/*"],
+      "@appAsset/*": ["client/app/asset/*"],
+      "@appComponent/*": ["client/app/component/*"],
+      "@appLayout/*": ["client/app/layout/*"],
+      "@appRoute/*": ["client/app/route/*"],
+      "@appStore/*": ["client/app/store/*"],
+      "@appAction/*": ["client/app/store/action/*"],
+      "@appReducer/*": ["client/app/store/reducer/*"],
+      "@appSaga/*": ["client/app/store/saga/*"],
+      "@appUtil/*": ["client/app/util/*"],
+      "@lp/*": ["client/lp/*"],
+      "@lpAsset/*": ["client/lp/asset/*"],
+      "@lpComponent/*": ["client/lp/component/*"],
+      "@lpLayout/*": ["client/lp/layout/*"],
+      "@lpRoute/*": ["client/lp/route/*"],
       "@serverRoute/*": ["server/route/*"],
       "@serverTemplate/*": ["server/template/*"],
-      "@serverUtil/*": ["server/util/*"],
-      "@lpAsset/*": ["lp/asset/*"],
-      "@lpComponent/*": ["lp/component/*"],
-      "@lpLayout/*": ["lp/layout/*"],
-      "@lpRoute/*": ["lp/route/*"]
+      "@serverUtil/*": ["server/util/*"]
     },
   },
   "exclude": [
@@ -42,10 +44,10 @@
     "node_modules"
   ],
   "include": [
-    "src/app/**/*",
-    "src/server/**/*", "src/lp/index.tsx"
+    "src/client/**/*",
+    "src/server/**/*"
   ],
   "files": [
-    "src/app/index.d.ts"
+    "src/client/app/index.d.ts"
   ]
 }

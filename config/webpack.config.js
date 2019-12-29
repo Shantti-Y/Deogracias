@@ -3,8 +3,8 @@ const modulePath = require('path');
 const entryDir = '../src';
 const outDir = '../dist';
 
-const appDir = `../src/app`;
-const lpDir = `../src/lp`;
+const appDir = `../src/client/app`;
+const lpDir = `../src/client/lp`;
 const serverDir = `../src/server`;
 
 const commonConfig = {
@@ -60,6 +60,7 @@ const commonConfig = {
 	resolve: {
 		extensions: ['.js', '.jsx', '.ts', '.tsx', '.jpg', '.png', '.scss'],
 		alias: {
+			'@app': modulePath.resolve(__dirname, `${appDir}`),
 			'@appAsset': modulePath.resolve(__dirname, `${appDir}/asset`),
 			'@appComponent': modulePath.resolve(__dirname, `${appDir}/component`),
 			'@appLayout': modulePath.resolve(__dirname, `${appDir}/layout`),
@@ -69,6 +70,7 @@ const commonConfig = {
 			'@appReducer': modulePath.resolve(__dirname, `${appDir}/store/reducer`),
 			'@appSaga': modulePath.resolve(__dirname, `${appDir}/store/saga`),
 			'@appUtil': modulePath.resolve(__dirname, `${appDir}/util`),
+			'@lp': modulePath.resolve(__dirname, `${lpDir}`),
 			'@lpAsset': modulePath.resolve(__dirname, `${lpDir}/asset`),
 			'@lpComponent': modulePath.resolve(__dirname, `${lpDir}/component`),
 			'@lpLayout': modulePath.resolve(__dirname, `${lpDir}/layout`),
