@@ -12,19 +12,19 @@ interface NameInputProps {
 }
 const NameInput: FC<NameInputProps> = props => {
 
-  const handleChange = (event: React.FormEvent) => {
-    const target = event.target as HTMLInputElement;
-    props.onInput(target.value);
-  }
+	const handleChange = (event: React.FormEvent) => {
+		const target = event.target as HTMLInputElement;
+		props.onInput(target.value);
+	};
 
-  return (
-    <div className="name-input"> 
-      <FormLabel name="Manga Name" />
-      <InputText
-        value={props.value}
-        onChange={event => handleChange(event)}
-      />
-    </div>
-  );
+	return (
+		<div className="name-input"> 
+			<FormLabel name="Manga Name" />
+			<InputText
+				value={props.value}
+				onChange={event => handleChange(event)}
+			/>
+		</div>
+	);
 };
 export default NameInput;

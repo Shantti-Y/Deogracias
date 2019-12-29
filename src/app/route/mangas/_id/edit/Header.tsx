@@ -10,14 +10,12 @@ interface ComponentDispatchProps { }
 interface ComponentOwnProps { }
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const MangasIdEdit: FC<ComponentProps> = props => {
-  const mangaName = props.manga ? `Edit: ${props.manga.name}` : "";
+	const mangaName = props.manga ? `Edit: ${props.manga.name}` : "";
 
-  return (
-    <ItemContainer title={mangaName}>
-    </ItemContainer>
-  );
-}
-const mapStateToProps = state => ({
-  manga: state.entity.manga.selectedManga
-});
+	return (
+		<ItemContainer title={mangaName}>
+		</ItemContainer>
+	);
+};
+const mapStateToProps = state => ({ manga: state.entity.manga.selectedManga });
 export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, {})(MangasIdEdit);

@@ -5,9 +5,9 @@ import filterSaga from '@appSaga/util/filter';
 import viewerSaga from '@appSaga/util/viewer';
 
 export default function* saga() {
-  yield all([
-    ...appStatusSaga(),
-    ...filterSaga(),
-    ...viewerSaga()
-  ]);
+	yield all([
+		...appStatusSaga(),
+		...filterSaga(),
+		...viewerSaga()
+	]);
 }

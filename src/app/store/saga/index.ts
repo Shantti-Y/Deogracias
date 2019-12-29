@@ -4,8 +4,8 @@ import entitySaga from '@appSaga/entity';
 import utilSaga from '@appSaga/util';
 
 export default function* saga() {
-  yield all([
-    ...entitySaga(),
-    ...utilSaga()
-  ]);
+	yield all([
+		...entitySaga(),
+		...utilSaga()
+	]);
 }

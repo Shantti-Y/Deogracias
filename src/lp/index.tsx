@@ -7,16 +7,14 @@ import '@appAsset/stylesheet/root.scss';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import "primeflex/primeflex.css"
+import "primeflex/primeflex.css";
 
 import Routes from "@lpRoute/index";
 
-const App = () => {
-  return (
-    <Routes />
-  );
-};
+const App = () => (
+	<Routes />
+);
 ReactDOM.render(
-  <App />,
-  document.getElementById("app")
+	<App />,
+	document.getElementById("app")
 );

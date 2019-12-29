@@ -13,34 +13,31 @@ interface ComponentProps {
 }
 const Modal: FC<ComponentProps> = props => {
 
-  const Footer = () => {
-    return (
-      <div>
-        <Button
-          label="Cancel"
-          className="p-button-secondary"
-          onClick={() => props.onClose()}
-        />
-        <Button
-          label="Delete"
-          className="p-button-danger"
-          onClick={() => props.onDelete()}
-        />
-      </div>
-    )
-  }
+	const Footer = () => 
+		<div>
+			<Button
+				label="Cancel"
+				className="p-button-secondary"
+				onClick={() => props.onClose()}
+			/>
+			<Button
+				label="Delete"
+				className="p-button-danger"
+				onClick={() => props.onDelete()}
+			/>
+		</div>;
 
-return (
-  <Dialog
-    visible={props.opened}
-    header={`Are you sure to delete ${props.name}?`}
-    style={{ width: '50vw' }}
-    onHide={() => props.onClose()}
-    footer={<Footer />}
-    appendTo={document.getElementById('app')!!}
-  >
+	return (
+		<Dialog
+			visible={props.opened}
+			header={`Are you sure to delete ${props.name}?`}
+			style={{ width: '50vw' }}
+			onHide={() => props.onClose()}
+			footer={<Footer />}
+			appendTo={document.getElementById('app')!!}
+		>
     Once it is removed, you neither cannot undelete nor cannot recover it.
-  </Dialog>
-);
+		</Dialog>
+	);
 };
 export default Modal;

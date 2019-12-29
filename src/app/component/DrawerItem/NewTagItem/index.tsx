@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import './style.scss';
@@ -19,32 +19,28 @@ interface ComponentDispatchProps {
 interface ComponentOwnProps {}
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const NewTagItem: FC<ComponentProps> = props => {
-  const [formOpened, setFormOpened] = useState(false);
+	const [formOpened, setFormOpened] = useState(false);
 
-  useEffect(() => {
-    if (props.appStatus === successStatus.CREATED_TAG) {
-      setFormOpened(false);
-    }
-  }, [props.appStatus]);
+	useEffect(() => {
+		if (props.appStatus === successStatus.CREATED_TAG) {
+			setFormOpened(false);
+		}
+	}, [props.appStatus]);
 
-  if (formOpened) {
-    return (
-      <TagForm
-        opened={formOpened}
-        onClose={() => setFormOpened(false)}
-        onSubmit={(tag: TagEntity) => props.onSubmit(tag)}
-        initialTag={{ name: '' }}
-      />
-    )
-  } else {
-    return <MenuItem icon="pi pi-tag" text="New Tag" onClick={() => setFormOpened(true)} />;
-  }
-}
-const mapStateToProps = state => ({
-  appStatus: state.util.appStatus.status
-});
-const mapDispatchToProps = dispatch => ({
-  onSubmit: (tag: TagEntity) => dispatch(createTag.action(tag))
-})
+	if (formOpened) {
+		return (
+			<TagForm
+				opened={formOpened}
+				onClose={() => setFormOpened(false)}
+				onSubmit={(tag: TagEntity) => props.onSubmit(tag)}
+				initialTag={{ name: '' }}
+			/>
+		);
+	} else {
+		return <MenuItem icon="pi pi-tag" text="New Tag" onClick={() => setFormOpened(true)} />;
+	}
+};
+const mapStateToProps = state => ({ appStatus: state.util.appStatus.status });
+const mapDispatchToProps = dispatch => ({ onSubmit: (tag: TagEntity) => dispatch(createTag.action(tag)) });
 
 export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(NewTagItem);

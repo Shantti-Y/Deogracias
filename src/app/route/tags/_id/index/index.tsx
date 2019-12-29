@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import DrawerItem from './Drawer';
@@ -25,39 +25,39 @@ interface ComponentDispatchProps {
 interface ComponentOwnProps {}
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const TagsId: FC<ComponentProps> = props => {
-  const { id: paramId } = useParams();
-  const history = useHistory();
+	const { id: paramId } = useParams();
+	const history = useHistory();
 
-  useEffect(() => {
-    if (paramId) {
-      const initId = parseInt(paramId);
-      props.onPageLoad(initId);
-    }
-  }, [paramId]);
+	useEffect(() => {
+		if (paramId) {
+			const initId = parseInt(paramId);
+			props.onPageLoad(initId);
+		}
+	}, [paramId]);
 
-  useEffect(() => {
-    if (props.appStatus === warningStatus.DELETED_TAG) {
-      history.push('/')
-    }
-  }, [props.appStatus]);
+	useEffect(() => {
+		if (props.appStatus === warningStatus.DELETED_TAG) {
+			history.push('/');
+		}
+	}, [props.appStatus]);
 
-  return (
-    <MangaList />
-  );
+	return (
+		<MangaList />
+	);
 };
 
 const mapStateToProps = state => ({
-  tag: state.entity.tag.selectedTag,
-  tags: state.entity.tag.tags,
-  appStatus: state.util.appStatus.status
+	tag: state.entity.tag.selectedTag,
+	tags: state.entity.tag.tags,
+	appStatus: state.util.appStatus.status
 });
 
 const mapDispatchToProps = dispatch => ({
-  onPageLoad: (tagId: number) => {
-    dispatch(fetchTagById.action(tagId))
-    dispatch(fetchAllTags.action());
-    dispatch(fetchMangasByTagId.action(tagId));
-  }
+	onPageLoad: (tagId: number) => {
+		dispatch(fetchTagById.action(tagId));
+		dispatch(fetchAllTags.action());
+		dispatch(fetchMangasByTagId.action(tagId));
+	}
 });
 
 export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(TagsId);

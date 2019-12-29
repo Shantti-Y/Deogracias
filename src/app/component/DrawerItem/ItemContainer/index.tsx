@@ -7,9 +7,7 @@ import './style.scss';
 interface ItemContainerProps {
   menuItems: any[]
 }
-const ItemContainer: FC<ItemContainerProps> = props => {
-  return (
-    <PanelMenu model={props.menuItems} />
-  )
-}
+const ItemContainer: FC<ItemContainerProps> = props => (
+	<PanelMenu model={props.menuItems} />
+);
 export default ItemContainer;

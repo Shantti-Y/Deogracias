@@ -10,22 +10,22 @@ interface DrawerMenuProps {
 }
 const DrawerMenu: FC<DrawerMenuProps> = props => {
 
-  const handleClosed = () => {
-    props.closed();
-  }
-  return (
-    <Sidebar
-      className="drawer-menu"
-      modal={false}
-      visible={props.opened}
-      onHide={() => handleClosed()}
-      showCloseIcon={false}
-    >
-      <div className="site-title">
-        <h1>Deogracias</h1>
-      </div>
-      <props.itemComponent />
-    </Sidebar>
-  )
-}
+	const handleClosed = () => {
+		props.closed();
+	};
+	return (
+		<Sidebar
+			className="drawer-menu"
+			modal={false}
+			visible={props.opened}
+			onHide={() => handleClosed()}
+			showCloseIcon={false}
+		>
+			<div className="site-title">
+				<h1>Deogracias</h1>
+			</div>
+			<props.itemComponent />
+		</Sidebar>
+	);
+};
 export default DrawerMenu;

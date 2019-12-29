@@ -22,29 +22,27 @@ interface ComponentOwnProps { }
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const Dashboard: FC<ComponentProps> = props => {
 
-  useEffect(() => {
-    props.onPageLoad();
-  }, []);
+	useEffect(() => {
+		props.onPageLoad();
+	}, []);
 
-  useEffect(() => {
-    props.onChangeFilter(props.filterWord);
-  }, [props.filterWord]);
+	useEffect(() => {
+		props.onChangeFilter(props.filterWord);
+	}, [props.filterWord]);
 
-  return (
-    <MangaList />
-  );
+	return (
+		<MangaList />
+	);
 };
 
-const mapStateToProps = state => ({
-  filterWord: state.util.filter.word
-});
+const mapStateToProps = state => ({ filterWord: state.util.filter.word });
 
 const mapDispatchToProps = dispatch => ({
-  onPageLoad: () => {
-    dispatch(fetchAllTags.action());
-    dispatch(fetchAllMangas.action());
-  },
-  onChangeFilter: (word: string) => dispatch(fetchMangasByWord.action(word))
+	onPageLoad: () => {
+		dispatch(fetchAllTags.action());
+		dispatch(fetchAllMangas.action());
+	},
+	onChangeFilter: (word: string) => dispatch(fetchMangasByWord.action(word))
 });
 
 export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -1,24 +1,22 @@
-import { put, all, takeLatest } from 'redux-saga/effects';
+import { all, put, takeLatest } from 'redux-saga/effects';
 
 import {
-  changeWord,
-  changeWordType,
-  setWord
+	changeWord,
+	changeWordType,
+	setWord
 } from '@appAction/util/filter';
 
 // APIs
 function* invokeChangeWord(action: changeWordType) {
-  const { word } = action.payload
-  yield put(setWord.action(word));
-};
+	const { word } = action.payload;
+	yield put(setWord.action(word));
+}
 
 // Bundle api functions to watcher and saga
 function* watchAsyncTriggers() {
-  yield takeLatest(changeWord.name, invokeChangeWord);
+	yield takeLatest(changeWord.name, invokeChangeWord);
 }
 
 export default function* saga() {
-  yield all([
-    watchAsyncTriggers()
-  ]);
+	yield all([watchAsyncTriggers()]);
 }

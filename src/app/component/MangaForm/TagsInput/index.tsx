@@ -17,27 +17,23 @@ interface ComponentStateProps {
 type ComponentProps = ComponentOwnProps & ComponentStateProps;
 const TagsInput: FC<ComponentProps> = props => {
 
-  const selectableItems = () => {
-    return props.tags.map(tag => ({
-      label: tag.name,
-      value: tag.id
-    }));
-  }
+	const selectableItems = () => props.tags.map(tag => ({
+		label: tag.name,
+		value: tag.id
+	}));
 
-  return (
-    <div className="tags-input">
-      <FormLabel name="Tags" />
-      <MultiSelect
-        value={props.tagIds}
-        options={selectableItems()}
-        onChange={event => props.onChange(event.value)}
-      />
-    </div>
-  );
+	return (
+		<div className="tags-input">
+			<FormLabel name="Tags" />
+			<MultiSelect
+				value={props.tagIds}
+				options={selectableItems()}
+				onChange={event => props.onChange(event.value)}
+			/>
+		</div>
+	);
 };
 
-const mapStateToProps = state => ({
-  tags: state.entity.tag.tags
-});
+const mapStateToProps = state => ({ tags: state.entity.tag.tags });
 
 export default connect<ComponentStateProps>(mapStateToProps, {})(TagsInput);

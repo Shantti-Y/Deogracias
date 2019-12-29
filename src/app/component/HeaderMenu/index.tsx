@@ -11,20 +11,20 @@ interface HeaderMenuProps {
   drawerClicked: (opened: boolean) => void;
 }
 const HeaderMenu: FC<HeaderMenuProps> = props => {
-  const menuItems = [
-    {
-      icon: 'pi pi-bars',
-      style: { fontSize: '17px' },
-      command: () => handleDrawerClicked()
-    }
-  ]
-  const handleDrawerClicked = () => {
-    props.drawerClicked(!props.drawerOpened);
-  }
-  return (
-    <Menubar model={menuItems} className="header-menu">
-      <props.itemComponent />
-    </Menubar>
-  )
-}
+	const menuItems = [
+		{
+			icon: 'pi pi-bars',
+			style: { fontSize: '17px' },
+			command: () => handleDrawerClicked()
+		}
+	];
+	const handleDrawerClicked = () => {
+		props.drawerClicked(!props.drawerOpened);
+	};
+	return (
+		<Menubar model={menuItems} className="header-menu">
+			<props.itemComponent />
+		</Menubar>
+	);
+};
 export default HeaderMenu;

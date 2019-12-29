@@ -5,9 +5,9 @@ import filter from '@appReducer/util/filter';
 import viewer from '@appReducer/util/viewer';
 
 const reducer = combineReducers({
-  appStatus,
-  filter,
-  viewer
+	appStatus,
+	filter,
+	viewer
 });
 
 export default reducer;

@@ -24,31 +24,29 @@ interface ComponentDispatchProps {
 interface ComponentOwnProps {}
 type ComponentProps = ComponentStateProps & ComponentDispatchProps & ComponentOwnProps;
 const MangasNew: FC<ComponentProps> = props => {
-  const history = useHistory();
+	const history = useHistory();
 
-  useEffect(() => {
-    props.onPageLoad();
-  }, []);
+	useEffect(() => {
+		props.onPageLoad();
+	}, []);
 
-  useEffect(() => {
-    if (props.appStatus === successStatus.CREATED_MANGA) {
-      history.push('/');
-    }
-  }, [props.appStatus]);
+	useEffect(() => {
+		if (props.appStatus === successStatus.CREATED_MANGA) {
+			history.push('/');
+		}
+	}, [props.appStatus]);
   
-  return (
-    <div>
-      <MangaForm onSubmit={manga => props.onSubmit(manga)} />
-    </div>
-  );
+	return (
+		<div>
+			<MangaForm onSubmit={manga => props.onSubmit(manga)} />
+		</div>
+	);
 };
-const mapStateToProps = state => ({
-  appStatus: state.util.appStatus.status
-});
+const mapStateToProps = state => ({ appStatus: state.util.appStatus.status });
 
 const mapDispatchToProps = dispatch => ({
-  onPageLoad: () => dispatch(fetchAllTags.action()),
-  onSubmit: (manga: MangaEntity) => dispatch(createManga.action(manga))
+	onPageLoad: () => dispatch(fetchAllTags.action()),
+	onSubmit: (manga: MangaEntity) => dispatch(createManga.action(manga))
 });
 
 export default connect<ComponentStateProps, ComponentDispatchProps>(mapStateToProps, mapDispatchToProps)(MangasNew);

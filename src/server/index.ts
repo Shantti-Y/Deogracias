@@ -18,7 +18,8 @@ mainApp.use(express.static(distDir));
 mainApp.use('/api', apiApp);
 
 mainApp.listen(
-  3000,
-  () => {
-    console.log('Deogracias listening on port 3000!');
-});
+	3000,
+	() => {
+		console.log('Deogracias listening on port 3000!');
+	}
+);

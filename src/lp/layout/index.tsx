@@ -6,15 +6,13 @@ import Header from '@lpComponent/Header';
 import Footer from '@lpComponent/Footer';
 
 interface LayoutProps {}
-const Layout: FC<LayoutProps> = props => {
-  return (
-    <div id="layout">
-      <Header />
-      <div className="body">
-        {props.children}
-      </div>
-      <Footer />
-    </div>
-  )
-}
+const Layout: FC<LayoutProps> = props => 
+	<div id="layout">
+		<Header />
+		<div className="body">
+			{props.children}
+		</div>
+		<Footer />
+	</div>;
+  
 export default Layout;
