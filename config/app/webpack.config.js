@@ -22,23 +22,6 @@ const appConfig = merge(commonConfig, {
 			chunks: ['lp']
 		})
 	],
-	resolve: {
-		alias: {
-			'@appAsset': modulePath.resolve(__dirname, `${appDir}/asset`),
-			'@appComponent': modulePath.resolve(__dirname, `${appDir}/component`),
-			'@appLayout': modulePath.resolve(__dirname, `${appDir}/layout`),
-			'@appRoute': modulePath.resolve(__dirname, `${appDir}/route`),
-			'@appStore': modulePath.resolve(__dirname, `${appDir}/store`),
-			'@appAction': modulePath.resolve(__dirname, `${appDir}/store/action`),
-			'@appReducer': modulePath.resolve(__dirname, `${appDir}/store/reducer`),
-			'@appSaga': modulePath.resolve(__dirname, `${appDir}/store/saga`),
-			'@appUtil': modulePath.resolve(__dirname, `${appDir}/util`),
-			'@lpAsset': modulePath.resolve(__dirname, `${lpDir}/asset`),
-			'@lpComponent': modulePath.resolve(__dirname, `${lpDir}/component`),
-			'@lpLayout': modulePath.resolve(__dirname, `${lpDir}/layout`),
-			'@lpRoute': modulePath.resolve(__dirname, `${lpDir}/route`)
-		}
-	},
 	node: { fs: "empty" },
 	target: "web",
 	devServer: {
