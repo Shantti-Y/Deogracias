@@ -1,0 +1,27 @@
+.page-preview-list {
+  height: 600px;
+  overflow: scroll;
+
+  .page-link {
+    padding: 7px 10px;
+    display: inline-flex;
+    border-bottom: 1px solid #e3e9ea;
+    overflow: hidden;
+    width: 45%;
+    img {
+      float: left;
+      width: 100%;
+      max-height: 100%;
+    }
+
+    &:hover {
+      opacity: 0.5;
+
+      .manga-info {
+        span {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

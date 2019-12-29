@@ -71,13 +71,16 @@ const TaggedMangaList: FC<ComponentProps> = props => {
             text={`Tag: ${tag.name}`}
             onClick={() => handleChooseTag(tag.id!!)}
           />
-          {tag.id === targetTagId ? props.mangas.map(manga => MangaLink(manga)): null}
+          {tag.id === targetTagId ? (
+            <div className="manga-link-box">
+              {props.mangas.map(manga => MangaLink(manga))}
+            </div>
+          ) : null}
         </div>
       ))}
     </div>
   )
 }
-
 const mapStateToProps = state => ({
   tags: state.entity.tag.tags,
   mangas: state.entity.manga.mangas

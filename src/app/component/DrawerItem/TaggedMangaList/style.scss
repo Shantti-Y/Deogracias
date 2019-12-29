@@ -1,9 +1,14 @@
 .tagged-manga-list {
-  .manga-link {
+    max-height: 300px;
+    overflow: scroll;
+  .manga-link-box {
+    overflow: scroll;
+    height: 300px;
+
+    .manga-link {
     padding: 7px 10px;
     display: block;
     height: 90px;
-    height: 100%;
     border-bottom: 1px solid #e3e9ea;
     overflow: hidden;
     img {
@@ -26,5 +31,6 @@
         }
       }
     }
+  }
   }
 }

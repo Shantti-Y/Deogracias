@@ -32,4 +32,8 @@
       border-radius: 20px;
     }
   }
+
+  @media all and (max-width: 640px) {
+    left: 0;
+  }
 }

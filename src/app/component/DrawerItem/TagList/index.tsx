@@ -72,7 +72,7 @@ const TagList: FC<ComponentProps> = props => {
         text="Tag List"
         unclickable
       />
-      <ScrollPanel>
+      <ScrollPanel className="scroll-panel">
         {props.tags.map((tag, idx) => {
           if (targetTagId === tag.id && !modalOpened){
             return (
