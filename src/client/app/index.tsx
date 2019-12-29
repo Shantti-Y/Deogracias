@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Provider } from 'react-redux';
 
 import '@appAsset/stylesheet/root.scss';
@@ -9,12 +8,14 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import "primeflex/primeflex.css";
 
-import Routes from "@lpRoute/index";
+import store from '@appStore';
+import Routes from "@appRoute";
 
-const App = () => (
-	<Routes />
-);
-ReactDOM.render(
-	<App />,
-	document.getElementById("app")
-);
+//window.resizeTo(1000, 900);
+
+const App = () => 
+	<Provider store={store}>
+		<Routes />
+	</Provider>;
+
+export default App;
