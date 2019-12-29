@@ -52,7 +52,7 @@ const RemoteUrlInput: FC<RemoteUrlInputProps> = props => {
   const handleCrawlingSettingSubmitted = async () => {
     if (!fetchingRemoteUrls){
       setFetchingRemoteUrls(true);
-      const fetchResult = await fetch('http://localhost:3000/remote-site-images', {
+      const fetchResult = await fetch('http://localhost:3000/api/remote-site-images', {
         method: 'POST',
         mode: 'cors',
         headers: { 'Content-Type': 'application/json'},
