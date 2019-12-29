@@ -19,6 +19,7 @@ apiRouter.post(
     const imageSelector = req.body.imageSelector;
     const nextLinkSelector = req.body.nextLinkSelector;
     const limitLinks = req.body.limitLinks;
+    console.log("start fetching")
     const imageUrls = await crawl(siteUrl, imageSelector, parseInt(limitLinks), nextLinkSelector);
 
     res.set({
