@@ -62,8 +62,8 @@
     "webpack-node-externals": "^1.7.2"
   },
   "scripts": {
-    "dev-desktop": "nw & webpack-dev-server --config ./config/app/webpack.config.js & webpack --config ./config/server/webpack.config.js -w",
-    "dev-web": "nodemon ./dist/server.js & webpack-dev-server --config ./config/app/webpack.config.js & webpack --config ./config/server/webpack.config.js -w",
+    "dev-desktop": "nw & webpack-dev-server --config ./config/client/webpack.config.js & webpack --config ./config/server/webpack.config.js -w",
+    "dev-web": "nodemon ./dist/server.js & webpack-dev-server --config ./config/client/webpack.config.js & webpack --config ./config/server/webpack.config.js -w",
     "eslint": "eslint 'src/**' -c .eslintrc",
     "eslint-fix": "eslint 'src/**' -c .eslintrc --fix"
   }
