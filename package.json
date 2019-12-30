@@ -65,6 +65,7 @@
     "dev-desktop": "nw & webpack-dev-server --config ./config/development/webpack.config.client.js & webpack --config ./config/development/webpack.config.server.js -w",
     "dev-web": "nodemon ./dist/server.js & webpack-dev-server --config ./config/development/webpack.config.client.js & webpack --config ./config/development/webpack.config.server.js -w",
     "eslint": "eslint 'src/**' -c .eslintrc",
-    "eslint-fix": "eslint 'src/**' -c .eslintrc --fix"
+    "eslint-fix": "eslint 'src/**' -c .eslintrc --fix",
+    "prod-build": "webpack --progress --config ./config/production/webpack.config.js"
   }
 }
