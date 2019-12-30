@@ -1,22 +1,14 @@
 const modulePath = require('path');
-const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const commonConfig = require('../webpack.config.js');
 
 const clientDir = `../../src/client`;
+const htmlDir = `./src`;
 
-const clientConfig = merge(commonConfig, {
+const clientConfig = {
 	entry: { client: [modulePath.resolve(__dirname, `${clientDir}/index.tsx`)] },
-	plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
+	plugins: [new HtmlWebpackPlugin({ template: `${htmlDir}/index.html` })],
 	node: { fs: "empty" },
-	target: "web",
-	devServer: {
-		inline: true,
-		contentBase: modulePath.join(__dirname, './dist'),
-		hot: true,
-		historyApiFallback: true,
-		port: 9000
-	}
-});
+	target: "web"
+};
 
 module.exports = clientConfig;

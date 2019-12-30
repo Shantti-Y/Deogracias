@@ -1,15 +1,13 @@
 const modulePath = require('path');
 
-const entryDir = '../src';
-const outDir = '../dist';
+const entryDir = '../../src';
+const outDir = '../../dist';
 
-const appDir = `../src/client/app`;
-const lpDir = `../src/client/lp`;
-const serverDir = `../src/server`;
+const appDir = `../../src/client/app`;
+const lpDir = `../../src/client/lp`;
+const serverDir = `../../src/server`;
 
 const commonConfig = {
-	mode: "development",
-	devtool: "source-map",
 	module: {
 		rules: [
 			{
@@ -80,11 +78,7 @@ const commonConfig = {
 			'@serverUtil': modulePath.resolve(__dirname, `${serverDir}/util`)
 		}
 	},
-	output: {
-		filename: '[name].js',
-		path: modulePath.resolve(__dirname, `${outDir}`),
-		publicPath: '/'
-	}
+	output: { publicPath: '/' }
 };
 
 module.exports = commonConfig;
