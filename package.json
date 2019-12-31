@@ -10,6 +10,7 @@
     "cors": "^2.8.5",
     "dayjs": "^1.8.16",
     "dexie": "^2.0.4",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "nw": "0.42.5-sdk",
     "nw-builder": "^3.5.7",
@@ -39,6 +40,7 @@
     "@typescript-eslint/parser": "^2.4.0",
     "babel-loader": "^8.0.6",
     "bufferutil": "^4.0.1",
+    "compression-webpack-plugin": "^3.0.1",
     "css-loader": "^3.2.0",
     "eslint": "^6.5.1",
     "file-loader": "^4.2.0",
@@ -63,9 +65,10 @@
   },
   "scripts": {
     "dev-desktop": "nw & webpack-dev-server --config ./config/development/webpack.config.client.js & webpack --config ./config/development/webpack.config.server.js -w",
-    "dev-web": "nodemon ./dist/server.js & webpack-dev-server --config ./config/development/webpack.config.client.js & webpack --config ./config/development/webpack.config.server.js -w",
+    "dev-web": "nodemon ./dev/server.js & webpack-dev-server --config ./config/development/webpack.config.client.js & webpack --config ./config/development/webpack.config.server.js -w",
     "eslint": "eslint 'src/**' -c .eslintrc",
     "eslint-fix": "eslint 'src/**' -c .eslintrc --fix",
-    "prod-build": "webpack --progress --config ./config/production/webpack.config.js"
+    "prod-build": "webpack --progress --config ./config/production/webpack.config.js",
+    "prod-start": "node ./dist/server.js"
   }
 }

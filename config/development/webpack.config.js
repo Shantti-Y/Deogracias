@@ -13,10 +13,7 @@ const developmentConfig = merge(commonConfig, {
 		hot: true,
 		historyApiFallback: true
 	},
-	output: {
-		filename: '[name].js',
-		path: modulePath.resolve(__dirname, `${outDir}`)
-	}
+	output: { filename: '[name].js' }
 });
 
 module.exports = developmentConfig;
